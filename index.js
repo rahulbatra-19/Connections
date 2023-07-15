@@ -1,11 +1,16 @@
 const express = require('express');
+const cookieParser = require('cookie-parser');
 const app = express();
 const port = 6;
 const db = require('./config/mongoose');
 // setting up express layout for layouts 
 const expressLayouts = require('express-ejs-layouts');
 app.use(expressLayouts);
-
+// used for session cookie
+const session = require('express-session'); 
+const passport = require('passport');
+const passportLocal = require('./config/passport-local-strategy');
+const MongoStore = require('connect-mongo');
 // setting up assets as your static folder
 app.use(express.static('./assets'));
 
@@ -13,13 +18,40 @@ app.use(express.static('./assets'));
 app.set('layout extractStyles', true);
 app.set('layout extractScripts', true);
 
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
-// using express Routes  
-app.use('/', require('./routes'));
+
+
 
 // set up view engine
 app.set('view engine' , 'ejs');
 app.set('views', './views');
+
+app.use(session({
+    name: 'connections',
+    secret: 'secketKey',
+    saveUninitialized : false,
+    resave: false,
+    cookie : {
+        maxAge : (1000*60*100)
+    },
+    store: MongoStore.create({
+        mongoUrl : 'mongodb://localhost/connections_db',
+        autoRemove : 'disabled'
+    },
+    function (err) {
+        console.log(err || 'connect-mongoDB setup');
+    })
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(passport.setAuthenticatedUser);
+
+
+// using express Routes  
+app.use('/', require('./routes'));
 
 app.listen(port , function(err){
     if(err)
