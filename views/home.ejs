@@ -1,1 +1,45 @@
 <h1>Connections || <%=title %> </h1>
+
+
+<section id="posts">
+    <form action="/posts/create" id="new-post-form" enctype="multipart/form-data" method="post">
+        
+        <div>
+            <label for="image">Upload Image</label>
+            <br>
+        <input type="file" name="image" id="image" value="" required>
+        </div>
+
+        <div>
+            <label for="desc">Image Description</label>
+            <br>
+            <textarea
+              id="desc"
+              name="caption"
+              value=""
+              rows="2"
+              placeholder="Caption"
+              required
+            >
+            </textarea>
+        </div>
+       
+        <input type="submit" value="submit">
+    </form>
+
+    <div id="posts-uploaded">
+
+            <% items.forEach(function(image) { %>
+            <div>
+              <div>
+                <img src="data:<%= image.img.contentType %>;base64, <%= image.img.data.toString('base64') %>" alt="Post Image" width="300px" height="350px">
+                <div>
+                  <p><%= image.caption %></p>
+                </div>
+              </div>
+            </div>
+            <% }) %>
+
+            
+    </div>
+</section>

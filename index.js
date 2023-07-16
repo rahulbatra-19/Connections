@@ -14,6 +14,9 @@ const MongoStore = require('connect-mongo');
 // setting up assets as your static folder
 app.use(express.static('./assets'));
 
+
+
+
 // extract style and scripts from sub pages into layout
 app.set('layout extractStyles', true);
 app.set('layout extractScripts', true);
@@ -48,7 +51,8 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(passport.setAuthenticatedUser);
-
+// make the uploads path available to the browser
+app.use('/uploads',express.static(__dirname + '/uploads'));
 
 // using express Routes  
 app.use('/', require('./routes'));
