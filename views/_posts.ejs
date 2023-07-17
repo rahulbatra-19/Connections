@@ -2,9 +2,6 @@
 
     <% items.forEach(function(post) { %>
     <div>
-
-       
-     
       <div>
         <p><%=post.user.name %>   
           <% if(locals.user&&(locals.user.id == post.user.id)) { %>

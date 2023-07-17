@@ -2,9 +2,6 @@ const User = require('../models/users');
 const Post = require('../models/posts');
 
 module.exports.profile = async function(req, res){
-
-
-
     try{
         let posts = await Post.find({user:req.user.id})
         .sort('-createdAt')
@@ -73,6 +70,7 @@ module.exports.create = function(req, res){
 
 // Sign in to create session for the user 
 module.exports.createSession = function(req, res){
+    req.flash('success', 'Logged in successfully:');
     return res.redirect('/');
 }
 
@@ -82,6 +80,8 @@ module.exports.createSession = function(req, res){
 module.exports.destroySession = function (req, res, next){
     req.logout(function(err){
         if(err) {return next(err);}
-    return res.redirect('/');
     });
+    req.flash('success', 'Logged out successfully!');
+    return res.redirect('/');
 }
+

@@ -12,6 +12,11 @@ const passport = require('passport');
 const passportLocal = require('./config/passport-local-strategy');
 const MongoStore = require('connect-mongo');
 // setting up assets as your static folder
+
+// for flash messsages
+const flash  = require('connect-flash');
+const customMware = require('./config/middleware');
+
 app.use(express.static('./assets'));
 
 
@@ -50,7 +55,14 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(flash());
+app.use(customMware.setFlash);
+
+
 app.use(passport.setAuthenticatedUser);
+
+
 // make the uploads path available to the browser
 app.use('/uploads',express.static(__dirname + '/uploads'));
 

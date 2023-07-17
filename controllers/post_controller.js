@@ -20,7 +20,7 @@ module.exports.create = function(req, res){
     console.log(obj);
     Post.create(obj)
     .then((createdPost) => {
-      console.log('Post created:', createdPost);
+        req.flash('success', 'Post created');
       res.redirect('back');
     })
     .catch((err) => {
@@ -40,6 +40,7 @@ module.exports.destroy = async function(req, res){
 
              fs.unlinkSync(path.join(__dirname,'..', post.img));
             post.deleteOne();
+            req.flash('success', 'Deleted post successfully:');
             return res.redirect('back');
         }
         else{
