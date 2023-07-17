@@ -1,11 +1,33 @@
 const User = require('../models/users');
-module.exports.profile = function(req, res){
-    
+const Post = require('../models/posts');
 
-    return res.render('user_profile', {
-        title : "User Profile"
-    });
+module.exports.profile = async function(req, res){
 
+
+
+    try{
+        let posts = await Post.find({user:req.user.id})
+        .sort('-createdAt')
+        .populate('user')
+        .populate({
+            path: 'comments',
+            populate : {
+                path:'user'
+            },
+            options:{
+                sort: '-createdAt'
+            }
+        })
+        res.render('user_profile', {
+            title: "User profile",
+            items : posts
+        });
+
+        return res.redirect('/');
+    }
+    catch(err){
+        console.log("Error in finding user ",err)
+    }
 
 };
 
