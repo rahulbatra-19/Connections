@@ -2,7 +2,7 @@
 
 
 <section id="posts">
-    <form action="/posts/create" id="new-post-form" enctype="multipart/form-data" method="post">
+    <form action="/posts/create" id="new-postform" enctype="multipart/form-data" method="post">
         
         <div>
             <label for="image">Upload Image</label>
@@ -25,7 +25,20 @@
        
         <input type="submit" value="submit">
     </form>
-    <%- include('_posts') -%>
+    <div id="posts-list-container">
+        <ul>
+            <% for(post of items) {%>
+                <%-  include('_posts') -%>
+              <% } %>
+        </ul>
+    </div>
 
   
 </section>
+
+
+<script src="/js/home_post_comments.js" ></script>
+<script>
+     new PostComments();
+</script>
+<!-- <script src="/js/home_posts.js"></script>  -->

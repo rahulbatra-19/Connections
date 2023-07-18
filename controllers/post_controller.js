@@ -7,26 +7,36 @@ const Comment = require('../models/comments');
 
 
 
-module.exports.create = function(req, res){
+module.exports.create = async function(req, res){
 
-    const filePath =  path.join("/uploads/posts")+ "/" + req.file.filename;
-    var obj = {
+    try{
+    const filePath =  path.join("uploads/posts")+ "/" + req.file.filename;
+
+    let post = await Post.create({
         caption : req.body.caption,
         img: filePath,
         user: req.user._id
-    }
-
-
-    console.log(obj);
-    Post.create(obj)
-    .then((createdPost) => {
-        req.flash('success', 'Post created');
-      res.redirect('back');
-    })
-    .catch((err) => {
-      console.log('Error:', err);
-      res.status(500).json({ error: 'An error occurred' });
     });
+
+
+    
+    if (req.xhr){
+        return res.status(200).json({
+            data: {
+                post: post,
+                user: req.user
+            },
+            message: "Post created!"
+        });
+    }
+    
+        req.flash('success', 'Post created');
+        res.redirect('back');
+    }
+    catch(err){
+      req.flash('error', err);
+      return res.redirect('back');
+    }
     
 }
 
@@ -38,17 +48,28 @@ module.exports.destroy = async function(req, res){
             let comment = await Comment.deleteMany({post: req.params.id });
 
 
-             fs.unlinkSync(path.join(__dirname,'..', post.img));
+            fs.unlinkSync(path.join(__dirname,'..', post.img));
             post.deleteOne();
-            req.flash('success', 'Deleted post successfully:');
+
+            if(req.xhr)
+             {
+                 return res.status(200).json({
+                     data : {
+                         post_id : req.params.id
+                     },
+                     message: "Post deleted "
+                 });
+
+             }
+            req.flash('success', 'Posts and associated comments destroyed');
             return res.redirect('back');
         }
         else{
-            console.log('error You cannot delete this post');
+            req.flash('error', 'You cannot delete this post');
             return res.redirect('back');
         }
     } catch (error) {
-        console.log('Error in destroying post', error);
+        req.flash('error', error);
         return res.redirect('back');
     }
 }

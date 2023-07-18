@@ -1,34 +1,33 @@
-<div id="posts-uploaded">
-
-    <% items.forEach(function(post) { %>
+<li id="post-<%= post._id%>">
+  <div>
     <div>
-      <div>
-        <p><%=post.user.name %>   
-          <% if(locals.user&&(locals.user.id == post.user.id)) { %>
-          <small>
-            <a href="/posts/destroy/<%= post.id %>">X</a>
-          </small>
-          <%}%> 
-        </p>
-        <img src= "<%= post.img %>" alt="Post Image" width="300px" height="350px" name="imageuploaded">
-          <p><%= post.caption %></p>
-        </div>
-        <div class="post-comments">
-            <form action="/comments/create" method="post" id="comments-form">
-                <input type="text" name="content"  placeholder="Enter your comment">
-                <input type="hidden" name="post" value="<%= post._id%>">
-                <input type="submit" value="Add Comment">        
-            </form>
+      <p>
+        <%=post.user.name %>
+          <% if(locals.user&&(locals.user.id==post.user.id)) { %>
+            <small>
+              <a class="delete-post-button"  href="/posts/destroy/<%= post.id %>">X</a>
+            </small>
+            <%}%>
+      </p>
+      <img src="<%= post.img %>" alt="Post Image" width="300px" height="350px" name="imageuploaded">
+      <p>
+        <%= post.caption %>
+      </p>
+    </div>
+    <div class="post-comments">
+      <form action="/comments/create" method="post" id="post-<%= post._id %>-comments-form" >
+        <input type="text" name="content" placeholder="Enter your comment">
+        <input type="hidden" name="post" value="<%= post._id%>">
+        <input type="submit" value="Add Comment">
+      </form>
 
-      </div>
-      <div id="post-comments">
+    </div>
+    <div class="post-comments-list">
+      <ul id="post-comments-<%= post._id%>">
         <% for(comment of post.comments){ %>
           <%- include('_comment') -%>
-       
-          <%}%>
+            <%}%>
+      </ul>
     </div>
-    </div>
-    <% }) %>
-
-    
-</div>
+  </div>
+</li>

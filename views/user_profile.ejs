@@ -1,7 +1,9 @@
 <link rel="stylesheet" href="/css/user_profile.css">
 <h1>Connections || <%=title %></h1>
-
-
+<div id="about">
+  name: <%= profile_user.name %>
+  email: <%= profile_user.email %>
+</div>
 <div id="posts-uploaded">
 
     <% items.forEach(function(post) { %>
@@ -10,14 +12,14 @@
        
      
       <div>
-        <p><%=post.user.name %>   
+        <p><%=profile_user.name %>   
           <% if(locals.user&&(locals.user.id == post.user.id)) { %>
           <small>
             <a href="/posts/destroy/<%= post.id %>">X</a>
           </small>
           <%}%> 
         </p>
-        <img src="data:<%= post.img.contentType %>;base64, <%= post.img.data.toString('base64') %>" alt="Post Image" width="300px" height="350px">
+        <img src="<%= post.img %>" alt="Post Image" width="300px" height="350px">
           <p><%= post.caption %></p>
         </div>
         <div class="post-comments">

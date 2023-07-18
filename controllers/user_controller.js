@@ -3,7 +3,8 @@ const Post = require('../models/posts');
 
 module.exports.profile = async function(req, res){
     try{
-        let posts = await Post.find({user:req.user.id})
+        let user= await User.findById(req.params.id);
+        let posts = await Post.find({user:user})
         .sort('-createdAt')
         .populate('user')
         .populate({
@@ -17,10 +18,11 @@ module.exports.profile = async function(req, res){
         })
         res.render('user_profile', {
             title: "User profile",
+            profile_user : user,
             items : posts
         });
 
-        return res.redirect('/');
+
     }
     catch(err){
         console.log("Error in finding user ",err)
