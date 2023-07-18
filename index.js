@@ -8,9 +8,11 @@ const expressLayouts = require('express-ejs-layouts');
 app.use(expressLayouts);
 // used for session cookie
 const session = require('express-session'); 
+const MongoStore = require('connect-mongo');
 const passport = require('passport');
 const passportLocal = require('./config/passport-local-strategy');
-const MongoStore = require('connect-mongo');
+const passportGoogle = require('./config/passport-google-oauth2-strategy');
+const passportGithub = require('./config/passport-github-strategy');
 // setting up assets as your static folder
 
 // for flash messsages
@@ -36,22 +38,23 @@ app.use(cookieParser());
 app.set('view engine' , 'ejs');
 app.set('views', './views');
 
-app.use(session({
-    name: 'connections',
-    secret: 'secketKey',
-    saveUninitialized : false,
-    resave: false,
-    cookie : {
-        maxAge : (1000*60*100)
-    },
-    store: MongoStore.create({
-        mongoUrl : 'mongodb://localhost/connections_db',
-        autoRemove : 'disabled'
-    },
-    function (err) {
-        console.log(err || 'connect-mongoDB setup');
+
+app.use(
+    session({
+      name: 'connections',
+      secret: 'secketKey',
+      saveUninitialized: false,
+      resave: false,
+      cookie: {
+        maxAge: 1000 * 60 * 100,
+      },
+      store: MongoStore.create({
+        mongoUrl: 'mongodb://localhost/connections_db',
+        autoRemove: 'disabled',
+      }),
     })
-}));
+  );
+  
 
 app.use(passport.initialize());
 app.use(passport.session());
