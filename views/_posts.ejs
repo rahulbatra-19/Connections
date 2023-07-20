@@ -14,6 +14,48 @@
         <%= post.caption %>
       </p>
     </div>
+    <small>
+      <div class="reactions-container">
+      <% const hasReactions = reactionPost.find(reaction => reaction.likeable._id == post.id); %>
+        <% if (!hasReactions) { %>
+          <span class="reaction-count" data-likes="<%= post.reactions.length %>">
+            <%= post.reactions.length %> 
+          </span>
+          <a class="toggle-reaction-button like" data-likes="<%= post.reactions.length %>" data-type="👍🏻"
+            href="/reactions/toggle/?id=<%= post._id %>&type=Post&reactiontype=👍🏻">
+            👍🏻
+          </a>
+          <a class="toggle-reaction-button love" data-likes="<%= post.reactions.length %>" data-type="❤️"
+            href="/reactions/toggle/?id=<%= post._id %>&type=Post&reactiontype=❤️">
+            ❤️
+          </a>
+          <a class="toggle-reaction-button funny" data-likes="<%= post.reactions.length %>" data-type="🤣"
+            href="/reactions/toggle/?id=<%= post._id %>&type=Post&reactiontype=🤣">
+            🤣
+          </a>
+          <a class="toggle-reaction-button wow" data-likes="<%= post.reactions.length %>" data-type="🤩"
+            href="/reactions/toggle/?id=<%= post._id %>&type=Post&reactiontype=🤩">
+            🤩
+          </a>
+          <a class="toggle-reaction-button sad" data-likes="<%= post.reactions.length %>" data-type="😢"
+            href="/reactions/toggle/?id=<%= post._id %>&type=Post&reactiontype=😢">
+            😢
+          </a>
+          <a class="toggle-reaction-button angry" data-likes="<%=post.reactions.length %>" data-type="😡"
+            href="/reactions/toggle/?id=<%= post._id %>&type=Post&reactiontype=😡">
+            😡
+          </a>
+        <% } else { %>
+          <span class="reaction-count" data-likes="<%= post.reactions.length %>">
+            <%= post.reactions.length %> 
+          </span>
+            <a class="toggle-reaction-button delete" 
+              href="/reactions/toggle/?id=<%= post._id %>&type=Post&reactiontype=<%= hasReactions.type %>">
+              <%= hasReactions.type %>
+            </a>
+        <% } %>
+      </div>
+    </small>
     <div class="post-comments">
       <form action="/comments/create" method="post" id="post-<%= post._id %>-comments-form" >
         <input type="text" name="content" placeholder="Enter your comment">

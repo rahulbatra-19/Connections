@@ -21,7 +21,13 @@ const postsSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Comment'
         }
-    ]
+    ],
+    reactions : [
+         {
+             type: mongoose.Schema.Types.ObjectId,
+             ref: 'Reaction'
+         }
+     ]
 
 
 },{

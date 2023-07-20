@@ -13,6 +13,16 @@ const userSchema = new mongoose.Schema({
     name: {
         type: String, 
         required: true 
+    },
+    resetToken: {
+        token: {
+            type: String,
+            default: null
+        },
+        expiry: {
+            type: Date,
+            default: null
+        }
     }
 },   {
     timestamps: true 

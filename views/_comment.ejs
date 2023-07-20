@@ -1,12 +1,52 @@
-<li id="comment-<%= comment.id%>"></li>
+<li id="comment-<%= comment.id %>"></li>
 <div>
-  <%= comment.content%>
-    &emsp; &emsp; &emsp; -
-    <%= comment.user.name %>
-      <% if(locals.user &&(locals.user.id==comment.user.id)) { %>
-        <small>
-          <a href="/comments/destroy/<%=comment.id %>">X</a>
-        </small>
-        <%}%>
-    <br>
+  <%= comment.content %>&emsp; &emsp; &emsp; - <%= comment.user.name %>
+  <% if (locals.user && locals.user.id == comment.user.id) { %>
+    <small>
+      <a href="/comments/destroy/<%= comment.id %>">X</a>
+    </small>
+  <% } %>
+  <br>
+  <small>
+    <div class="reactions-container">
+    <% const hasReactions = reactionComment.find(reaction => reaction.likeable._id == comment.id); %>
+      <% if (!hasReactions) { %>
+        <span class="reaction-count" data-likes="<%= comment.reactions.length %>">
+          <%= comment.reactions.length %> 
+        </span>
+        <a class="toggle-reaction-button like" data-likes="<%= comment.reactions.length %>" data-type="👍🏻"
+          href="/reactions/toggle/?id=<%= comment._id %>&type=Comment&reactiontype=👍🏻">
+          👍🏻
+        </a>
+        <a class="toggle-reaction-button love" data-likes="<%= comment.reactions.length %>" data-type="❤️"
+          href="/reactions/toggle/?id=<%= comment._id %>&type=Comment&reactiontype=❤️">
+          ❤️
+        </a>
+        <a class="toggle-reaction-button funny" data-likes="<%= comment.reactions.length %>" data-type="🤣"
+          href="/reactions/toggle/?id=<%= comment._id %>&type=Comment&reactiontype=🤣">
+          🤣
+        </a>
+        <a class="toggle-reaction-button wow" data-likes="<%= comment.reactions.length %>" data-type="🤩"
+          href="/reactions/toggle/?id=<%= comment._id %>&type=Comment&reactiontype=🤩">
+          🤩
+        </a>
+        <a class="toggle-reaction-button sad" data-likes="<%= comment.reactions.length %>" data-type="😢"
+          href="/reactions/toggle/?id=<%= comment._id %>&type=Comment&reactiontype=😢">
+          😢
+        </a>
+        <a class="toggle-reaction-button angry" data-likes="<%= comment.reactions.length %>" data-type="😡"
+          href="/reactions/toggle/?id=<%= comment._id %>&type=Comment&reactiontype=😡">
+          😡
+        </a>
+      <% } else { %>
+        <span class="reaction-count" data-likes="<%= comment.reactions.length %>">
+          <%= comment.reactions.length %> 
+        </span>
+          <a class="toggle-reaction-button delete" 
+            href="/reactions/toggle/?id=<%= comment._id %>&type=Comment&reactiontype=<%= hasReactions.type %>">
+            <%= hasReactions.type %>
+          </a>
+      <% } %>
+    </div>
+  </small>
 </div>

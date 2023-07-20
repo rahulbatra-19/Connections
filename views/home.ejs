@@ -37,8 +37,17 @@
 </section>
 
 
-<script src="/js/home_post_comments.js" ></script>
+<!-- <script src="/js/home_post_comments.js" ></script>
 <script>
      new PostComments();
-</script>
+</script> -->
 <!-- <script src="/js/home_posts.js"></script>  -->
+
+<script src="/js/reaction_created.js"></script>
+<script>
+  $('.reactions-container').each(function(){
+      let self = this;
+    //   console.log(this);
+      let toggleReaction= new ToggleReaction(self);
+  });
+</script>

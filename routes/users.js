@@ -10,6 +10,12 @@ router.get('/sign-in', userController.signIn);
 router.post('/create', userController.create);
 router.get('/sign-out', userController.destroySession);
 
+router.get('/forgot-pass', userController.forgotPass);
+
+ router.post('/passwordForgot', userController.passwordForgot);
+ router.get('/passwordChange', userController.passChange); 
+ router.post('/reset-password', userController.resetPass);
+
 // authentication using google
 router.get('/auth/google', passport.authenticate('google', {scope: ['profile', 'email']}));
 router.get('/auth/google/callback', passport.authenticate('google', {failureRedirect:'/users/sign-in'}), userController.createSession);
