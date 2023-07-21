@@ -30,6 +30,9 @@ router.get('/auth/github/callback',
     // Successful authentication, redirect home.
     res.redirect('/');
   });
+
+
+
 // use passport as a middleware to authenticate
 router.post('/create-session', passport.authenticate(
     'local',

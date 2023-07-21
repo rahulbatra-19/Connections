@@ -4,40 +4,46 @@
   name: <%= profile_user.name %>
   email: <%= profile_user.email %>
 </div>
-<div id="posts-uploaded">
-
-    <% items.forEach(function(post) { %>
-    <div>
-
-       
-     
-      <div>
-        <p><%=profile_user.name %>   
-          <% if(locals.user&&(locals.user.id == post.user.id)) { %>
-          <small>
-            <a href="/posts/destroy/<%= post.id %>">X</a>
-          </small>
-          <%}%> 
-        </p>
-        <img src="<%= post.img %>" alt="Post Image" width="300px" height="350px">
-          <p><%= post.caption %></p>
-        </div>
-        <div class="post-comments">
-            <form action="/comments/create" method="post" id="comments-form">
-                <input type="text" name="content"  placeholder="Enter your comment">
-                <input type="hidden" name="post" value="<%= post._id%>">
-                <input type="submit" value="Add Comment">        
-            </form>
-
-      </div>
-      <div id="post-comments">
-        <% for(comment of post.comments){ %>
-          <%- include('_comment') -%>
-       
-          <%}%>
-    </div>
-    </div>
-    <% }) %>
-
-    
+<%if(locals.user.id != profile_user.id){%>
+<div id="friend-request">
+  <p>
+    <%if(!isfriend){%>
+    <a href="/friends/create/?id=<%=profile_user._id%>" class="toggle-friendship-button" data-value="Add friend" >
+      Add friend
+    </a>
+    <%}else if(isfriend.status == 'pending'){%>
+      <%if(isfriend.receiver.id == locals.user.id){%>
+        <a href="/friends/accept/?id=<%= isfriend.sender._id %>">
+          Accept
+      </a>
+        <%}%>
+        &emsp14;
+      <a href="/friends/destroy/?id=<%=profile_user._id%>" class="toggle-friendship-button" data-value="Add friend" >
+        Delete Request
+        </a>
+    <%}else{%>
+      <a href="/friends/destroy/?id=<%=profile_user._id%>" class="toggle-friendship-button" data-value="Add friend" >
+        remove friend
+      </a>
+      <%}%>
+</p>
 </div>
+<%}%>
+
+<div id="posts-list-container">
+<ul>
+  <% for(post of items) {%>
+    <%- include('_posts') -%>
+        <% } %>
+  </ul>
+</div>
+
+
+<script src="/js/reaction_created.js"></script>
+<script>
+    $('.reactions-container').each(function () {
+        let self = this;
+        //   console.log(this);
+        let toggleReaction = new ToggleReaction(self);
+    });
+</script>

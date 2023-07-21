@@ -1,41 +1,89 @@
-<h1>Connections || <%=title %> </h1>
+<link rel="stylesheet" href="/css/home.css">
+<h1>Connections || <%=title %>
+</h1>
 
-
+<div id="home-container">
 <section id="posts">
     <form action="/posts/create" id="new-postform" enctype="multipart/form-data" method="post">
-        
+
         <div>
             <label for="image">Upload Image</label>
             <br>
-        <input type="file" name="image" id="image" value="" required>
+            <input type="file" name="image" id="image" value="" required>
         </div>
 
         <div>
             <label for="desc">Image Description</label>
             <br>
-            <textarea
-              id="desc"
-              name="caption"
-              value=""
-              rows="2"
-              placeholder="Caption"
-              required
-            ></textarea>
+            <textarea id="desc" name="caption" value="" rows="2" placeholder="Caption" required></textarea>
         </div>
-       
+
         <input type="submit" value="submit">
     </form>
     <div id="posts-list-container">
         <ul>
             <% for(post of items) {%>
-                <%-  include('_posts') -%>
-              <% } %>
+                <%- include('_posts') -%>
+                    <% } %>
         </ul>
     </div>
 
-  
+
 </section>
 
+<div id="right">
+    <section id="users-all">
+        <h4>Users</h4>
+        <% for(let u of all_users) {%>
+            <p>
+                <a href="/users/profile/<%= u.id %>">
+                    <%=u.name%>
+                </a>
+            </p>
+            <%}%>
+    </section>
+    <%if(friends){%>
+    <section id="friends">
+        <h4>Friends</h4>
+        
+        <%for(let f of friends){  %>
+            <p>
+                <%if(f.sender.name==locals.user.name){%>
+                <a href="/users/profile/<%= f.receiver._id %>">
+                        <%= f.receiver.name %>
+                </a>
+                <%}else{%>
+                <a href="/users/profile/<%= f.sender._id %>">
+                            <%= f.sender.name %>
+                </a>
+                <%}%>
+            </p>
+            <%}%>
+    </section>
+    <%}%>
+    <section id="friendRequests">
+        FriendRequests
+        <%for(request of friendRequests) {%>
+            <div >
+            <%= request.sender.name %>
+            &emsp;
+            <a href="/friends/accept/?id=<%= request.sender._id %>">
+                Accept
+            </a>
+            &emsp;
+            <a href="/friends/destroy/?id=<%= request.sender._id %>">
+                Decline
+            </a>
+
+        </div>
+
+        <%}%>
+    </section>
+
+</div>
+
+
+</div>
 
 <!-- <script src="/js/home_post_comments.js" ></script>
 <script>
@@ -45,9 +93,9 @@
 
 <script src="/js/reaction_created.js"></script>
 <script>
-  $('.reactions-container').each(function(){
-      let self = this;
-    //   console.log(this);
-      let toggleReaction= new ToggleReaction(self);
-  });
+    $('.reactions-container').each(function () {
+        let self = this;
+        //   console.log(this);
+        let toggleReaction = new ToggleReaction(self);
+    });
 </script>

@@ -1,0 +1,11 @@
+#home-container {
+    display: flex;
+  }
+  
+#right{
+    width: 30%;
+}
+
+#posts{
+    width: 68%;
+}

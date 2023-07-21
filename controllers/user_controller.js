@@ -1,7 +1,10 @@
 const User = require('../models/users');
 const Post = require('../models/posts');
 const forgotPass = require('../mailers/forgot_pass_mailer');
+const Reaction = require('../models/reactions');
+
 const crypto = require('crypto');
+const FriendShip = require('../models/friendship');
 module.exports.profile = async function(req, res){
     try{
         let user= await User.findById(req.params.id);
@@ -14,14 +17,35 @@ module.exports.profile = async function(req, res){
             populate : {
                 path:'user'
             },
+            populate : {
+                path:'reactions'
+            },
             options:{
                 sort: '-createdAt'
             }
-        })
+        });
+
+        
+        let friends = await FriendShip.findOne(
+            {$or:[
+                { sender: req.user._id, receiver: user.id },
+                { receiver : req.user._id , sender : user.id}
+            ]}).populate('sender').populate('receiver');
+
+            console.log(friends);
+        let reactionComment = await Reaction.find({user: req.user,
+            onModel:"Comment"}).populate('likeable').populate('onModel');
+    
+        let reactionPost = await Reaction.find({user: req.user,
+            onModel:"Post"}).populate('likeable').populate('onModel');
+
         res.render('user_profile', {
             title: "User profile",
             profile_user : user,
-            items : posts
+            reactionComment : reactionComment,
+            reactionPost : reactionPost,
+            items : posts,
+            isfriend: friends
         });
 
 
