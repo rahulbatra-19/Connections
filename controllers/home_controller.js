@@ -6,7 +6,28 @@ module.exports.home = async function(req, res)
  {
 
     try{
-        let posts = await Post.find({})
+        let friends = await FriendShip.find(
+            {$or:[
+                { sender: req.user._id },
+                { receiver : req.user._id }
+            ], status:'accepted'  }).populate('sender').populate('receiver');
+
+            let friendsPost = [req.user._id];
+            let i =1;
+            for(let f of friends){
+                if(f.sender.id == req.user._id)
+                {
+                    friendsPost[i++] = f.receiver.id;
+
+                }else{
+
+                    friendsPost[i++]  = f.sender.id;
+
+                }
+            }
+            console.log(friendsPost);
+
+        let posts = await Post.find({user :{ $in: friendsPost }})
         .sort('-createdAt')
         .populate('user')
         .populate('reactions')
@@ -26,12 +47,12 @@ module.exports.home = async function(req, res)
 
         let friendRequests = await FriendShip.find({receiver: req.user._id , status:'pending'  }).populate('sender');
         // console.log(friendRequests);
-        let friends = await FriendShip.find(
-            {$or:[
-                { sender: req.user._id },
-                { receiver : req.user._id }
-            ], status:'accepted'  }).populate('sender').populate('receiver');
-            console.log(friends);
+        // let friends = await FriendShip.find(
+        //     {$or:[
+        //         { sender: req.user._id },
+        //         { receiver : req.user._id }
+        //     ], status:'accepted'  }).populate('sender').populate('receiver');
+            // console.log(friends);
 
         let users = await User.find({});
 
