@@ -2,6 +2,7 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const app = express();
 const port = 6;
+const cors = require('cors');
 const db = require('./config/mongoose');
 // setting up express layout for layouts 
 const expressLayouts = require('express-ejs-layouts');
@@ -22,11 +23,19 @@ const customMware = require('./config/middleware');
 app.use(express.static('./assets'));
 
 
-
+// Allow requests from http://localhost:6
+// app.use(cors({ origin: 'http://localhost:8000' }));
 
 // extract style and scripts from sub pages into layout
 app.set('layout extractStyles', true);
 app.set('layout extractScripts', true);
+
+// // setup the chat server to be usd with socket.io
+
+const chatServer = require('http').Server(app);
+const chatSockets = require('./config/chat_sockets').chatSockets(chatServer);
+chatServer.listen(4000);
+console.log('chat server is listening on port 4000');
 
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());

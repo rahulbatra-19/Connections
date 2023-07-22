@@ -2,7 +2,7 @@ const User = require('../models/users');
 const Post = require('../models/posts');
 const forgotPass = require('../mailers/forgot_pass_mailer');
 const Reaction = require('../models/reactions');
-
+const Message = require('../models/messages');
 const crypto = require('crypto');
 const FriendShip = require('../models/friendship');
 module.exports.profile = async function(req, res){
@@ -25,6 +25,18 @@ module.exports.profile = async function(req, res){
             }
         });
 
+
+        let messageUser = await Message.find({
+            $or: [
+           { sender : req.user._id, receiver : user.id},
+            { receiver : req.user._id  , sender : user.id }
+            ]
+        }).sort('createdAt').populate('sender').populate('receiver');
+        console.log(messageUser);
+        // let messageFriend = await Message.find({
+        //     sender : user.id, 
+        //     receiver : req.user._id
+        // });
         
         let friends = await FriendShip.findOne(
             {$or:[
@@ -32,7 +44,7 @@ module.exports.profile = async function(req, res){
                 { receiver : req.user._id , sender : user.id}
             ]}).populate('sender').populate('receiver');
 
-            console.log(friends);
+            // console.log(friends);
         let reactionComment = await Reaction.find({user: req.user,
             onModel:"Comment"}).populate('likeable').populate('onModel');
     
@@ -45,7 +57,9 @@ module.exports.profile = async function(req, res){
             reactionComment : reactionComment,
             reactionPost : reactionPost,
             items : posts,
-            isfriend: friends
+            isfriend: friends,
+            userMessage  : messageUser,
+            // friendMessage : messageFriend
         });
 
 
@@ -55,6 +69,50 @@ module.exports.profile = async function(req, res){
     }
 
 };
+
+
+module.exports.update =  async function(req, res)
+{
+    
+
+    if(req.params.id == req.user.id)
+    {
+        try {
+            let user =  await User.findById(req.params.id );
+            User.uploadedAvatar(req, res, function(err){
+                if(err)
+                {
+                    console.log("******Multer Errror", err);
+                }
+                user.name = req.body.name;
+                user.email = req.body.email;
+
+                if(req.file)
+                {
+                    if(user.avatar){
+                        fs.unlinkSync(path.join(__dirname,'..', user.avatar));
+                    }
+                    // this is just saving the path of the uploaded file nto the avatar feild in the user
+                    user.avatar = User.avatarPath + '/' +req.file.filename;
+                }
+                console.log(req.file);
+
+                user.save();
+                return res.redirect('back');
+            });
+
+        } catch (error) {
+            req.flash('error', error);
+            return res.redirect('back');
+        }
+      
+
+    }else{
+        req.flash('error', 'Unauthorized!');
+        return res.status(401).send('Unauthorized');
+    }
+
+}
 
 module.exports.signIn = function(req, res){
     if(req.isAuthenticated()){
@@ -181,7 +239,8 @@ module.exports.resetPass = function(req, res)
         user.save();
         req.flash('success', 'Pasword Changed');
         return res.redirect('/users/sign-in');
-      }).catch(err=>{
+    
+    }).catch(err=>{
         console.log('Error finding user by token:', err);
       req.flash('error', 'Something went wrong');
       return res.redirect('/users/forgot-pass');

@@ -1,0 +1,40 @@
+<link rel="stylesheet" href="/css/chat_box.css">
+
+
+	<div id="chat-box-open">
+		want to chat?
+	</div>
+
+
+	<div id="user-chat-box">
+        <span id="cross">X</span>
+		<ul id="chat-messages-list">
+            
+			
+            <%for(message of userMessage){%>
+                <%if(message.sender._id == locals.user.id) {%>
+			<li class="self-message">
+				<span>
+					<!-- your message -->
+                    <%= message.message%>
+				</span>	
+                <sub><%= message.sender.name%></sub>
+			</li>
+            <%}else {%>
+                <li class="other-message">
+                    <span> 
+                        <%= message.message %>
+                    </span>
+                    <sub>
+                        <%= message.sender.name %>
+                    </sub>
+                </li>
+                <%}}%>
+
+		</ul>
+		<div id="chat-message-input-container">
+			<input id="chat-message-input" placeholder="Type message here">
+			<button id="send-message">Send</button>
+		</div>
+
+	</div>

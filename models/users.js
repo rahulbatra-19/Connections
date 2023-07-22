@@ -1,4 +1,7 @@
 const mongoose = require('mongoose');
+const multer = require('multer');  
+const path = require('path');
+const avatarPath = path.join('/uploads/avatar');
 
 const userSchema = new mongoose.Schema({
     email: {
@@ -14,6 +17,9 @@ const userSchema = new mongoose.Schema({
         type: String, 
         required: true 
     },
+    about :{
+        type: String
+    },
     resetToken: {
         token: {
             type: String,
@@ -24,15 +30,26 @@ const userSchema = new mongoose.Schema({
             default: null
         }
     },
-    // friends :[
-    //     {
-    //         type : mongoose.Schema.Types.ObjectId,
-    //         ref : 'FriendShip'
-    //     }
-    // ]
+    avatar:{
+        type: String
+    }
 },   {
     timestamps: true 
 });
+
+
+let storage = multer.diskStorage({
+    destination: function(req, file , cb){
+        cb(null , path.join(__dirname, '..', avatarPath));
+    },
+    filename: function(req, file, cb){
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        cb(null, file.fieldname + '-' + uniqueSuffix);
+    }
+});
+
+
+var upload = multer({ storage: storage });
 
 const User = mongoose.model('User', userSchema);
 module.exports = User;

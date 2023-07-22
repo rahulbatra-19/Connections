@@ -51,16 +51,6 @@ module.exports.destroy = async function(req, res){
             fs.unlinkSync(path.join(__dirname,'..', post.img));
             post.deleteOne();
 
-            // if(req.xhr)
-            //  {
-            //      return res.status(200).json({
-            //          data : {
-            //              post_id : req.params.id
-            //          },
-            //          message: "Post deleted "
-            //      });
-
-            //  }
             req.flash('success', 'Posts and associated comments destroyed');
             return res.redirect('back');
         }

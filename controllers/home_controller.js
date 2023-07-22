@@ -25,7 +25,7 @@ module.exports.home = async function(req, res)
 
                 }
             }
-            console.log(friendsPost);
+            // console.log(friendsPost);
 
         let posts = await Post.find({user :{ $in: friendsPost }})
         .sort('-createdAt')
@@ -46,13 +46,7 @@ module.exports.home = async function(req, res)
 
 
         let friendRequests = await FriendShip.find({receiver: req.user._id , status:'pending'  }).populate('sender');
-        // console.log(friendRequests);
-        // let friends = await FriendShip.find(
-        //     {$or:[
-        //         { sender: req.user._id },
-        //         { receiver : req.user._id }
-        //     ], status:'accepted'  }).populate('sender').populate('receiver');
-            // console.log(friends);
+  
 
         let users = await User.find({});
 

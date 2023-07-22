@@ -16,7 +16,7 @@ const FriendShip = require('../models/friendship');
                 { sender: req.query.id , receiver : req.user._id }
             ]
         });
-        console.log(existingFriend);
+        // console.log(existingFriend);
         if(existingFriend){
             if(existingFriend.status=="pending"){
                 console.log('Friend request alredy sent');

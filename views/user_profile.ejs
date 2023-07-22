@@ -1,10 +1,16 @@
 <link rel="stylesheet" href="/css/user_profile.css">
 <h1>Connections || <%=title %></h1>
 <div id="about">
-  name: <%= profile_user.name %>
-  email: <%= profile_user.email %>
-</div>
+name: <%= profile_user.name %> 
 <%if(locals.user.id != profile_user.id){%>
+    <br>
+    <%if(profile_user.about){%>
+
+      <%= profile_user.about %>
+  </div>
+
+    <%}%>
+
 <div id="friend-request">
   <p>
     <%if(!isfriend){%>
@@ -28,7 +34,23 @@
       <%}%>
 </p>
 </div>
-<%}%>
+<%}else{%>
+
+  <%if(profile_user.about){%>
+
+    <%= profile_user.about %>
+    Want to Update your info?
+
+    <form action="/users/update/<%=profile_user.id %>" enctype="multipart/form-data" method="post">
+        <input type="text" name="name" placeholder="Your Name" value="<%= profile_user.name %>" required>
+        <input type="email" name="email" placeholder="Youe email" value="<%= profile_user.email %>" required>
+        <input type="file" name="avatar"  placeholder="Profile Picture" id="">
+        <input type="submit" value="Update">
+    </form>
+
+  <%}%>
+  </div>
+ <%}%>
 
 <div id="posts-list-container">
 <ul>
@@ -37,8 +59,11 @@
         <% } %>
   </ul>
 </div>
-
-
+<%if(isfriend && isfriend.status=='accepted'){%>
+<div>
+  <%- include('_chat_box')  -%>
+</div>
+<%}%>
 <script src="/js/reaction_created.js"></script>
 <script>
     $('.reactions-container').each(function () {
@@ -46,4 +71,23 @@
         //   console.log(this);
         let toggleReaction = new ToggleReaction(self);
     });
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.1/socket.io.js" integrity="sha512-Z6C1p1NIexPj5MsVUunW4pg7uMX6/TT3CUVldmjXx2kpip1eZcrAnxIusDxyFIikyM9A61zOVNgvLr/TGudOQg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="/js/chat_engine.js"></script>
+
+<script>
+  $('#chat-box-open').click(()=>{
+    $('#user-chat-box').css('display', 'block');
+  new ChatEngine('user-chat-box', '<%= locals.user.email %>','<%= profile_user.email %>' ,'<%=locals.user._id%>', '<%=profile_user._id%>', '<%= locals.user.name%>');
+    $('#chat-box-open').css('display', 'none');
+    var chatBox = $('#chat-messages-list');
+        chatBox.scrollTop(chatBox.prop("scrollHeight"));
+  });
+
+  $('#cross').click(()=>{
+    $('#chat-box-open').css('display', 'block');
+    $('#user-chat-box').css('display', 'none');
+  });
+
 </script>
