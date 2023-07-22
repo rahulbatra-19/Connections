@@ -1,0 +1,49 @@
+<%if(profile_user.avatar){%>
+    <img src="<%=profile_user.avatar%>" alt="<%=profile_user.name%>" width="1000px" height="100px" id="organization-img">
+    <%}else{%>
+  <%= profile_user.avatar%>
+
+      <img src= "/images/user-profile.png" alt="<%=profile_user.name%>" width="1000px" height="100px" id="organization-img">
+      <%}%>
+    <br>
+ <%= profile_user.name %> 
+ <br>
+ <%= profile_user.about %>
+</div>
+<%if(locals.user.id != profile_user.id){%>
+    <%if(!isfriend){%>
+    <div id="likePage">
+        <a href="/friends/create/?id=<%=profile_user._id%>" class="page-like-button" data-value="Like page" >
+            Like Page
+          </a>
+        <%}else{%>
+        <a href="/friends/destroy/?id=<%=profile_user._id%>" class="page-unlike-button" data-value="Unlike page" >
+            Unlike Page
+        </a>
+        <%}%> 
+    </div>
+
+    <%}else{%>
+
+        <div>
+      
+          <button id ="edit-info">Edit Info?</button>
+      
+          <form action="/users/update?id=<%=profile_user.id %>" enctype="multipart/form-data" method="post" id="form-edit-info">
+              <input type="text" name="name" placeholder="Your Name" value="<%= profile_user.name %>" required>
+              <input type="email" name="email" placeholder="Youe email" value="<%= profile_user.email %>" required>
+              <input type="text" name="about" placeholder="Tell Something about yourself" value="<%= profile_user.about%>" >
+              <input type="password" name="password" id="" value="<%= profile_user.password %>" >
+              <input type="file" name="avatar"  placeholder="Profile Picture" id="">
+              <input type="submit" value="Update" id="form-submit">
+          </form>
+      
+          </div>
+ <%}%>
+ <div id="posts-list-container">
+    <ul>
+      <% for(post of items) {%>
+        <%- include('_posts') -%>
+            <% } %>
+      </ul>
+    </div>

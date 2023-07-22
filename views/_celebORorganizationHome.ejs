@@ -1,0 +1,67 @@
+
+
+<section id="posts">
+    <form action="/posts/create" id="new-postform" enctype="multipart/form-data" method="post">
+
+        <div>
+            <label for="image">Upload Image</label>
+            <br>
+            <input type="file" name="image" id="image" value="" required>
+        </div>
+
+        <div>
+            <label for="desc">Image Description</label>
+            <br>
+            <textarea id="desc" name="caption" value="" rows="2" placeholder="Caption" required></textarea>
+        </div>
+
+        <input type="submit" value="submit">
+    </form>
+    <div id="posts-list-container">
+        <ul>
+            <% for(post of itemsOrganization) {%>
+                <%- include('_posts') -%>
+                    <% } %>
+        </ul>
+    </div>
+
+
+</section>
+<div id="right">
+    <section id="celebORorganization">
+        <h4>Celeb/Orgaanization</h4>
+        <p>
+            <%for(let o of celebORorgan){%>
+                <p>
+                    <a href="/users/profile/<%= o.id %>">
+                        <%=o.name%>
+                    </a>
+                </p>
+                <%}%>
+        </p>
+    </section>
+    <section id="users-all">
+        <h4>Users</h4>
+        <% for(let u of all_users) {%>
+            <%if(!u.isceleb_organization){%>
+            <p>
+                <a href="/users/profile/<%= u.id %>">
+                    <%=u.name%>
+                </a>
+            </p>
+            <%}}%>
+    </section>
+    <section id="followed">
+        <h4>Followed</h4>
+        <%for(let f of following){%>
+            <p>
+                <a href="/users/profile/<%= f.user2.id %>">
+                    <%=f.user2.name%>
+                </a>
+            </p>
+            <%}%>
+
+    </section>
+   
+
+    </div>

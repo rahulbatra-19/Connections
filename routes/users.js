@@ -12,6 +12,8 @@ router.get('/sign-in', userController.signIn);
 router.post('/create', userController.create);
 router.get('/sign-out', userController.destroySession);
 router.post('/update',upload.single('avatar') ,userController.update);
+router.get('/organization', passport.checkAuthentication , userController.makeCeleborOrganization);
+
 
 router.get('/forgot-pass', userController.forgotPass);
 

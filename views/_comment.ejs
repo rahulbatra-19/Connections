@@ -1,7 +1,7 @@
 <li id="comment-<%= comment.id %>"></li>
 <div>
   <%= comment.content %>&emsp; &emsp; &emsp; - <%= comment.user.name %>
-  <% if (locals.user && locals.user.id == comment.user.id) { %>
+  <% if(locals.user&&(locals.user.id==comment.user.id)) { %>
     <small>
       <a href="/comments/destroy/<%= comment.id %>">X</a>
     </small>

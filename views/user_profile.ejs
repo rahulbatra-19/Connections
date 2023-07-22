@@ -3,7 +3,7 @@
 
 
 <div id="about">
-
+<%if(!profile_user.isceleb_organization){%>
   <%if(profile_user.avatar){%>
     <img src="<%=profile_user.avatar%>" alt="<%=profile_user.name%>" width="100px" height="100px">
     <%}else{%>
@@ -18,7 +18,7 @@
 </div>
 
 <%if(locals.user.id != profile_user.id){%>
-
+<%if(!locals.user.isceleb_organization){%>
 <div id="friend-request">
   <p>
     <%if(!isfriend){%>
@@ -43,6 +43,20 @@
 </p>
 </div>
 <%}else{%>
+  <div id="follow">
+    <p>
+      <%if(!isfollow){%>
+      <a href="/follow/create/?id=<%=profile_user._id%>" class="toggle-friendship-button" data-value="Add friend" >
+        Follow
+      </a>
+      <%}else{%>
+        <a href="/follow/destroy/?id=<%=profile_user._id%>" class="toggle-friendship-button" data-value="Add friend" >
+          Unfollow
+        </a>
+        <%}%>
+  </p>
+  </div>
+<%}}else{%>
 
   <div>
 
@@ -70,11 +84,17 @@
         <% } %>
   </ul>
 </div>
+<%if(!locals.user.isceleb_organization){%>
 <%if(isfriend && isfriend.status=='accepted'){%>
 <div>
   <%- include('_chat_box')  -%>
 </div>
-<%}%>
+<%}}%>
+<%}else{%>
+
+  <%- include('_celebORorganization')-%>
+
+  <%}%>
 <script src="/js/reaction_created.js"></script>
 <script>
     $('.reactions-container').each(function () {

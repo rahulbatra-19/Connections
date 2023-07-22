@@ -1,14 +1,23 @@
 <link rel="stylesheet" href="/css/home.css">
 <h1>Connections || <%=title %>
 </h1>
-
+<div>
+    <%if(!locals.user.isceleb_organization){%>
+    <a href="/users/organization?id=<%= locals.user._id %> ">Make page organization </a>
+    <%}%>
+    </div>
 <%if(locals.user.avatar){%>
     <img src="<%=locals.user.avatar%>" alt="<%=locals.user.name%>" width="100px" height="100px" class="img-avatar">
     <%}else{%>
 
       <img src= "/images/user-profile.png" alt="<%=locals.user.name%>" width="100px" height="100px" class="img-avatar">
       <%}%>
+
+
 <div id="home-container">
+
+
+    <%if(!locals.user.isceleb_organization){%>
 
   
 
@@ -44,18 +53,32 @@
     <section id="users-all">
         <h4>Users</h4>
         <% for(let u of all_users) {%>
+            <%if(!u.isceleb_organization){%>
             <p>
                 <a href="/users/profile/<%= u.id %>">
                     <%=u.name%>
                 </a>
             </p>
-            <%}%>
+            <%}}%>
+    </section>
+    <section id="celebORorganization">
+        <h4>Celeb/Orgaanization</h4>
+        <p>
+            <%for(let o of celebORorgan){%>
+                <p>
+                    <a href="/users/profile/<%= o.id %>">
+                        <%=o.name%>
+                    </a>
+                </p>
+                <%}%>
+        </p>
     </section>
     <%if(friends){%>
     <section id="friends">
         <h4>Friends</h4>
         
         <%for(let f of friends){  %>
+            <%if(!f.isceleb_organization){%>
             <p>
                 <%if(f.sender.name==locals.user.name){%>
                 <a href="/users/profile/<%= f.receiver._id %>">
@@ -67,9 +90,11 @@
                 </a>
                 <%}%>
             </p>
-            <%}%>
+
+            <%}}%>
     </section>
     <%}%>
+
     <section id="friendRequests">
         FriendRequests
         <%for(request of friendRequests) {%>
@@ -90,7 +115,9 @@
     </section>
 
 </div>
-
+<%}else{%>
+    <%- include('_celebORorganizationHome') -%>
+    <%}%>
 
 </div>
 

@@ -33,6 +33,9 @@ const userSchema = new mongoose.Schema({
     },
     avatar:{
         type: String
+    },
+    isceleb_organization :{
+        type: Boolean
     }
 },   {
     timestamps: true 

@@ -9,4 +9,6 @@ router.use('/posts' , require('./posts'));
 router.use('/comments', require('./comments'));
 router.use('/reactions', require('./reactions'));
 router.use('/friends', require('./friends'));
+router.use('/follow', require('./follow'));
+
 module.exports = router;

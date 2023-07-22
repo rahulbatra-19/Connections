@@ -7,7 +7,11 @@ const FriendShip = require('../models/friendship');
 
         let sender = req.user._id;
         let receiver = req.query.id;
+        let celeb_organization = await User.findById(req.query.id);
         let status = "pending";
+        if(celeb_organization.isceleb_organization){
+            status = "accepted"
+        }
 
 
         let existingFriend = await FriendShip.findOne({
