@@ -1,15 +1,23 @@
 <link rel="stylesheet" href="/css/user_profile.css">
 <h1>Connections || <%=title %></h1>
+
+
 <div id="about">
-name: <%= profile_user.name %> 
-<%if(locals.user.id != profile_user.id){%>
+
+  <%if(profile_user.avatar){%>
+    <img src="<%=profile_user.avatar%>" alt="<%=profile_user.name%>" width="100px" height="100px">
+    <%}else{%>
+  <%= profile_user.avatar%>
+
+      <img src= "/images/user-profile.png" alt="<%=profile_user.name%>" width="100px" height="100px">
+      <%}%>
     <br>
-    <%if(profile_user.about){%>
+ <%= profile_user.name %> 
+ <br>
+ <%= profile_user.about %>
+</div>
 
-      <%= profile_user.about %>
-  </div>
-
-    <%}%>
+<%if(locals.user.id != profile_user.id){%>
 
 <div id="friend-request">
   <p>
@@ -36,20 +44,23 @@ name: <%= profile_user.name %>
 </div>
 <%}else{%>
 
-  <%if(profile_user.about){%>
+  <div>
 
-    <%= profile_user.about %>
-    Want to Update your info?
+    <button id ="edit-info">Edit Info?</button>
 
-    <form action="/users/update/<%=profile_user.id %>" enctype="multipart/form-data" method="post">
+    <form action="/users/update?id=<%=profile_user.id %>" enctype="multipart/form-data" method="post" id="form-edit-info">
         <input type="text" name="name" placeholder="Your Name" value="<%= profile_user.name %>" required>
         <input type="email" name="email" placeholder="Youe email" value="<%= profile_user.email %>" required>
+        <input type="text" name="about" placeholder="Tell Something about yourself" value="<%= profile_user.about%>" >
+        <input type="password" name="password" id="" value="<%= profile_user.password %>" >
         <input type="file" name="avatar"  placeholder="Profile Picture" id="">
-        <input type="submit" value="Update">
+        <input type="submit" value="Update" id="form-submit">
     </form>
 
-  <%}%>
-  </div>
+    </div>
+
+    <div id="overlay"></div>
+
  <%}%>
 
 <div id="posts-list-container">
@@ -89,5 +100,22 @@ name: <%= profile_user.name %>
     $('#chat-box-open').css('display', 'block');
     $('#user-chat-box').css('display', 'none');
   });
+
+
+  $('#edit-info').click(() => {
+    $('#overlay').css('display', 'block'); // Show the overlay
+    $('#form-edit-info').css('display', 'block'); // Show the edit profile form
+  });
+
+  $('#form-edit-info').submit(() => {
+    $('#overlay').css('display', 'none'); // Hide the overlay when the form is submitted
+    $('#form-edit-info').css('display', 'none'); // Hide the edit profile form
+  });
+
+  $('#form-edit-info').on('reset', () => {
+    $('#overlay').css('display', 'none'); // Hide the overlay when the form is reset (canceled)
+    $('#form-edit-info').css('display', 'none'); // Hide the edit profile form
+  });
+
 
 </script>

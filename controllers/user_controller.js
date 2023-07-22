@@ -4,7 +4,12 @@ const forgotPass = require('../mailers/forgot_pass_mailer');
 const Reaction = require('../models/reactions');
 const Message = require('../models/messages');
 const crypto = require('crypto');
+const fs = require('fs');
+
 const FriendShip = require('../models/friendship');
+const path = require('path');
+
+const avatarPath = path.join('/uploads/users/avatar');
 module.exports.profile = async function(req, res){
     try{
         let user= await User.findById(req.params.id);
@@ -33,11 +38,7 @@ module.exports.profile = async function(req, res){
             ]
         }).sort('createdAt').populate('sender').populate('receiver');
         console.log(messageUser);
-        // let messageFriend = await Message.find({
-        //     sender : user.id, 
-        //     receiver : req.user._id
-        // });
-        
+      
         let friends = await FriendShip.findOne(
             {$or:[
                 { sender: req.user._id, receiver: user.id },
@@ -75,31 +76,36 @@ module.exports.update =  async function(req, res)
 {
     
 
-    if(req.params.id == req.user.id)
+    if(req.query.id == req.user._id)
     {
         try {
-            let user =  await User.findById(req.params.id );
-            User.uploadedAvatar(req, res, function(err){
-                if(err)
-                {
-                    console.log("******Multer Errror", err);
-                }
+            let user =  await User.findById(req.user._id );
+
+
                 user.name = req.body.name;
                 user.email = req.body.email;
+                user.about = req.body.about;
 
                 if(req.file)
                 {
+
                     if(user.avatar){
+                console.log(user.avatar);
+
+                    console.log('hoho');
+
                         fs.unlinkSync(path.join(__dirname,'..', user.avatar));
                     }
+                    console.log(req.file.filename);
                     // this is just saving the path of the uploaded file nto the avatar feild in the user
-                    user.avatar = User.avatarPath + '/' +req.file.filename;
+                    user.avatar = avatarPath + '/' +req.file.filename;
                 }
-                console.log(req.file);
+                console.log(user.avatar);
+                // console.log(req.file);
 
                 user.save();
                 return res.redirect('back');
-            });
+
 
         } catch (error) {
             req.flash('error', error);

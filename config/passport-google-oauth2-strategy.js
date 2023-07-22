@@ -16,6 +16,7 @@ const passport = require('passport');
              console.log(accessToken, refreshToken);
 
              console.log(profile);
+             console.log(profile.photos[0].value);
              if (user) {
                  // If found, set this user as req.user
                  return done(null, user);
@@ -24,7 +25,8 @@ const passport = require('passport');
                  User.create({
                      name: profile.displayName,
                      email: profile.emails[0].value,
-                     password: crypto.randomBytes(20).toString('hex')
+                     password: crypto.randomBytes(20).toString('hex'),
+                     avatar : profile.photos[0].value
                  }).then(user => {
                      return done(null, user);
                  }).catch(err => {

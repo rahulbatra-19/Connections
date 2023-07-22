@@ -14,8 +14,9 @@ module.exports.home = async function(req, res)
 
             let friendsPost = [req.user._id];
             let i =1;
+            // console.log(friends);
             for(let f of friends){
-                if(f.sender.id == req.user._id)
+                if(f.sender._id == req.user._id)
                 {
                     friendsPost[i++] = f.receiver.id;
 

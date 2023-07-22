@@ -9,3 +9,9 @@
 #posts{
     width: 68%;
 }
+
+.img-avatar{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+}

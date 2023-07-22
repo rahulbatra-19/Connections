@@ -2,3 +2,32 @@ body{
     background-color: black;
     color: white;
 }
+
+#form-edit-info{
+    display: none;
+    z-index: 2;
+    /* opacity: 1 !important; */
+    background-color: white;
+}
+
+#about img{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+}
+
+
+
+/* Style for the overlay */
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vh;
+    height: 100vw;
+    background-color: rgba(1, 1, 1, 0.3); /* Semi-transparent black background */
+    z-index: 999; /* Make sure the overlay appears on top of other elements */
+    display: none; /* Initially hide the overlay */
+  }
+  
+  

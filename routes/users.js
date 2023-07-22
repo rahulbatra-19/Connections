@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/user_controller');
 const passport = require('passport');
+const multer = require('multer');
+const upload = multer({dest: 'uploads/users/avatar'});
 
 router.get('/profile',passport.checkAuthentication, userController.profile);
 router.get('/profile/:id',passport.checkAuthentication, userController.profile);
@@ -9,7 +11,7 @@ router.get('/sign-up', userController.signUp);
 router.get('/sign-in', userController.signIn);
 router.post('/create', userController.create);
 router.get('/sign-out', userController.destroySession);
-router.post('/update/:id', passport.checkAuthentication ,userController.update);
+router.post('/update',upload.single('avatar') ,userController.update);
 
 router.get('/forgot-pass', userController.forgotPass);
 

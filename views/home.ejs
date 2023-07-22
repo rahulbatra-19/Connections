@@ -2,7 +2,16 @@
 <h1>Connections || <%=title %>
 </h1>
 
+<%if(locals.user.avatar){%>
+    <img src="<%=locals.user.avatar%>" alt="<%=locals.user.name%>" width="100px" height="100px" class="img-avatar">
+    <%}else{%>
+
+      <img src= "/images/user-profile.png" alt="<%=locals.user.name%>" width="100px" height="100px" class="img-avatar">
+      <%}%>
 <div id="home-container">
+
+  
+
 <section id="posts">
     <form action="/posts/create" id="new-postform" enctype="multipart/form-data" method="post">
 

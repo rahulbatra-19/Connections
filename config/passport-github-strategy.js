@@ -21,7 +21,8 @@ passport.use(new GitHubStrategy({
         let newUser = await User.create({
           name: profile.displayName,
           email: profile.emails[0].value,
-          password: crypto.randomBytes(20).toString('hex')
+          password: crypto.randomBytes(20).toString('hex'),
+          avatar : profile.photos[0].value
           // Set any other user properties based on the GitHub profile if needed
         });
         
