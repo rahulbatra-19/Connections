@@ -1,0 +1,61 @@
+header{
+    display: flex;
+    background-color:#0080ff;
+    color: whitesmoke;
+    padding:10px;
+}
+header ul{
+    display: flex;
+    list-style: none;
+    position: relative;
+    margin-bottom: 0;
+    width: 95%;
+    justify-content: space-evenly;
+}
+
+header ul a{
+    padding-top: 15px;
+
+    color: white;
+}
+
+#sign-in{
+    margin-left: 80%;
+    padding-top: 15px;
+
+}
+#sign-out{
+
+    padding-top: 15px;
+
+}
+#logo-avatar img {
+    border-radius: 50%;
+    width: 3.5rem;
+    height: 3.5rem;
+}
+#home-icon{
+    padding-top: 0.6rem;
+
+    margin-left: 85%;
+
+}
+
+#log-out{
+    padding-top: 0.6rem;
+}
+
+b{
+    width: 5%;
+    margin-left: 1%;
+    text-align: center;
+    font-size: 3rem;
+    background-color: white;
+    color: #0080ff;
+    border-radius: 50%;
+    width: 3.5rem;
+    height: 3.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

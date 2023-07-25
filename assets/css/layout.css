@@ -1,7 +1,11 @@
-body{
-    background-color: black;
-    color: white;
-}
 .none{
     display: none;
+}
+
+a{
+    text-decoration: none;
+}
+#body-container{
+    min-height: 83vh;
+    background-color: rgb(224, 233, 238);
 }

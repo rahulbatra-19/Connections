@@ -1,20 +1,14 @@
 <link rel="stylesheet" href="/css/user_profile.css">
-<h1>Connections || <%=title %></h1>
 
-
-<div id="about">
 <%if(!profile_user.isceleb_organization){%>
-  <%if(profile_user.avatar){%>
-    <img src="<%=profile_user.avatar%>" alt="<%=profile_user.name%>" width="100px" height="100px">
-    <%}else{%>
-  <%= profile_user.avatar%>
+  <div class="above-post">
+    <div id="about">
+    <img src="<%=profile_user.avatar%>" alt="<%=profile_user.name%>" width="150px" height="150px"> 
+ <span><%= profile_user.name %> </span>
+ <p>
+  <%= profile_user.about %>
 
-      <img src= "/images/user-profile.png" alt="<%=profile_user.name%>" width="100px" height="100px">
-      <%}%>
-    <br>
- <%= profile_user.name %> 
- <br>
- <%= profile_user.about %>
+ </p>
 </div>
 
 <%if(locals.user.id != profile_user.id){%>
@@ -22,23 +16,32 @@
 <div id="friend-request">
   <p>
     <%if(!isfriend){%>
-    <a href="/friends/create/?id=<%=profile_user._id%>" class="toggle-friendship-button" data-value="Add friend" >
+    <a href="/friends/create/?id=<%=profile_user._id%>" class="toggle-friendship-button" data-value="Add friend" class="not-friend" >
+      <img width="30" height="30" src="https://img.icons8.com/pastel-glyph/64/ffffff/add-male-user.png" alt="add-male-user"/>
       Add friend
     </a>
     <%}else if(isfriend.status == 'pending'){%>
       <%if(isfriend.receiver.id == locals.user.id){%>
-        <a href="/friends/accept/?id=<%= isfriend.sender._id %>">
+        <a href="/friends/accept/?id=<%= isfriend.sender._id %>" id="remove-request">
+      <img width="30" height="30" src="https://img.icons8.com/pastel-glyph/64/ffffff/add-male-user.png" alt="add-male-user"/  >
+
           Accept
       </a>
         <%}%>
-        &emsp14;
-      <a href="/friends/destroy/?id=<%=profile_user._id%>" class="toggle-friendship-button" data-value="Add friend" >
+      <a href="/friends/destroy/?id=<%=profile_user._id%>" class="toggle-friendship-button" data-value="Add friend" class="not-friend" id="remove-request" >
+        <img width="30" height="30" src="https://img.icons8.com/windows/32/FFFFFF/unfriend-male.png" alt="unfriend-male"/>
         Delete Request
         </a>
     <%}else{%>
-      <a href="/friends/destroy/?id=<%=profile_user._id%>" class="toggle-friendship-button" data-value="Add friend" >
+      <span id="chat-box-open">
+        <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/speech-bubble-with-dots.png" alt="speech-bubble-with-dots"/> 
+        Message
+      </span>
+      <a href="/friends/destroy/?id=<%=profile_user._id%>" class="toggle-friendship-button" data-value="Add friend" class="not-friend" >
+        <img width="30" height="30" src="https://img.icons8.com/windows/32/FFFFFF/unfriend-male.png" alt="unfriend-male"/>
         remove friend
       </a>
+      
       <%}%>
 </p>
 </div>
@@ -58,32 +61,59 @@
   </div>
 <%}}else{%>
 
-  <div>
 
-    <button id ="edit-info">Edit Info?</button>
 
-    <form action="/users/update?id=<%=profile_user.id %>" enctype="multipart/form-data" method="post" id="form-edit-info">
-        <input type="text" name="name" placeholder="Your Name" value="<%= profile_user.name %>" required>
-        <input type="email" name="email" placeholder="Youe email" value="<%= profile_user.email %>" required>
-        <input type="text" name="about" placeholder="Tell Something about yourself" value="<%= profile_user.about%>" >
-        <input type="password" name="password" id="" value="<%= profile_user.password %>" >
-        <input type="file" name="avatar"  placeholder="Profile Picture" id="">
-        <input type="submit" value="Update" id="form-submit">
-    </form>
+    <button id ="edit-info"> <img width="24" height="24" src="https://img.icons8.com/material-sharp/24/edit--v1.png" alt="edit--v1"/> Edit profile</button>
 
-    </div>
-
-    <div id="overlay"></div>
 
  <%}%>
+  </div>
+
+<div id="middle">
 
 <div id="posts-list-container">
-<ul>
+  <ul id="posts-list">
   <% for(post of items) {%>
     <%- include('_posts') -%>
         <% } %>
   </ul>
 </div>
+
+<div id="right">
+  <form action="/users/update?id=<%=profile_user.id %>" enctype="multipart/form-data" method="post" id="form-edit-info">
+    <span>
+      Name:
+    <input type="text" name="name" placeholder="Your Name" value="<%= profile_user.name %>" required>
+    </span>
+    <span>
+      Email:
+      <input type="email" name="email" placeholder="Youe email" value="<%= profile_user.email %>" required>
+    </span>
+    <span>
+      About: 
+      <input type="text" name="about" placeholder="Tell Something about yourself" value="<%= profile_user.about%>" >
+    </span>
+    <span>
+      Password:
+      <input type="password" name="password" id="" value="<%= profile_user.password %>" >
+    </span>
+    <span>
+
+      <label for="avatar" class="custom-file-button">
+
+        <img width="40" height="40" src="https://img.icons8.com/doodle/48/stack-of-photos--v1.png" alt="stack-of-photos--v1"/>
+        Profile picture:
+    </label>
+      <input type="file" name="avatar"  placeholder="Profile Picture" id="avatar">
+    </span>
+      <input type="submit" value="Update" id="form-submit">
+  </form>
+
+
+</div>
+
+</div>
+
 <%if(!locals.user.isceleb_organization){%>
 <%if(isfriend && isfriend.status=='accepted'){%>
 <div>
@@ -92,9 +122,13 @@
 <%}}%>
 <%}else{%>
 
-  <%- include('_celebORorganization')-%>
+    <%- include('_celebORorganization')-%>
+
+
 
   <%}%>
+
+
 <script src="/js/reaction_created.js"></script>
 <script>
     $('.reactions-container').each(function () {
@@ -110,27 +144,25 @@
 <script>
   $('#chat-box-open').click(()=>{
     $('#user-chat-box').css('display', 'block');
-  new ChatEngine('user-chat-box', '<%= locals.user.email %>','<%= profile_user.email %>' ,'<%=locals.user._id%>', '<%=profile_user._id%>', '<%= locals.user.name%>');
-    $('#chat-box-open').css('display', 'none');
+  new ChatEngine('user-chat-box', '<%= locals.user.email %>','<%= profile_user.email %>' ,'<%=locals.user._id%>', '<%=profile_user._id%>', '<%= locals.user.name%>','<%=profile_user.name%>','<%=locals.user.avatar%>','<%=profile_user.avatar%>');
     var chatBox = $('#chat-messages-list');
         chatBox.scrollTop(chatBox.prop("scrollHeight"));
   });
 
   $('#cross').click(()=>{
-    $('#chat-box-open').css('display', 'block');
     $('#user-chat-box').css('display', 'none');
   });
 
+  $('.show-comments-section').click(()=>{
+        $('.post-comments').toggle();
+        $('.post-comments-list').toggle();
+    });
 
   $('#edit-info').click(() => {
-    $('#overlay').css('display', 'block'); // Show the overlay
-    $('#form-edit-info').css('display', 'block'); // Show the edit profile form
+    $('#right').toggle(); // Show the edit profile form
   });
 
-  $('#form-edit-info').submit(() => {
-    $('#overlay').css('display', 'none'); // Hide the overlay when the form is submitted
-    $('#form-edit-info').css('display', 'none'); // Hide the edit profile form
-  });
+
 
   $('#form-edit-info').on('reset', () => {
     $('#overlay').css('display', 'none'); // Hide the overlay when the form is reset (canceled)

@@ -13,10 +13,11 @@ const Follow = require('../models/follow');
 const avatarPath = path.join('/uploads/users/avatar');
 module.exports.profile = async function (req, res) {
     try {
+
         let user = await User.findById(req.params.id);
 
 
-        const posts = await Post.find({ user: user })
+        let posts = await Post.find({ user: user })
             .sort('-createdAt')
             .populate({
                 path: 'user',
@@ -67,6 +68,7 @@ module.exports.profile = async function (req, res) {
             onModel: "Comment"
         }).populate('likeable').populate('onModel');
 
+        console.log(reactionComment);
         let reactionPost = await Reaction.find({
             user: req.user,
             onModel: "Post"
@@ -164,7 +166,18 @@ module.exports.create = function (req, res) {
     }
     User.findOne({ email: req.body.email }).then(user => {
         if (!user) {
-            User.create(req.body).then(user => {
+            let celebORorganization = false;
+            console.log(req.body.isPage);
+            if(req.body.isPage == 'true'){
+             celebORorganization = true;
+            }
+            User.create({email :req.body.email,
+            password : req.body.password ,
+            name : req.body.name,
+            isceleb_organization : celebORorganization,
+            avatar : '/images/user-profile.png'
+        })
+            .then(user => {
                 return res.redirect('/users/sign-in');
             }).catch(err => {
                 console.log('Error in creating user in signing-up', err);

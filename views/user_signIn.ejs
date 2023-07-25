@@ -1,20 +1,48 @@
-<%= title %>
+<link rel="stylesheet" href="/css/sign-in.css">
+<div id="sign-in-body">
+<div id="text-side">
+    
+   <span>Connections</span> 
+   <br>
+   <p>Connections makes your connections in life more stronger. </p>
+</div>
+
+<div id="form-side">
+
+    <div id="form-side-form">
 
 <form action="/users/create-session" method="post">
     <input type="email" name="email" placeholder="Enter your mail id" >
     <input type="password" name="password" placeholder="Enter your password." >
-    <input type="submit" value="Sign In">
+    <input type="submit" value="Log In" id="log-in-button">
 </form>
-
-
-
-<p>
-    <a href="/users/auth/google">Google Sign In</a>
+<div id="links-signin">
+    <p>
+        <a href="/users/auth/google">
+            <img width="50" height="50" src="https://img.icons8.com/color/48/google-logo.png" alt="google-logo"/>
+        </a>
+        
+    </p> 
+    <p>
+        <a href="/users/auth/github">
+            <img width="50" height="50" src="https://img.icons8.com/ios-glyphs/30/github.png" alt="github"/>
+        </a>
+    </p>
+    <p>
+        <a href="/users/forgot-pass">
+            <img width="54" height="54" src="https://img.icons8.com/sf-black-filled/64/forgot-password.png" alt="forgot-password"/>
+        </a>
+    </p> 
     
-</p> 
-<p>
-    <a href="/users/auth/github">Github Sign In</a>
-</p>
-<p>
-    <a href="/users/forgot-pass">Forgot Password?</a>
-</p> 
+</div>
+<div id="create-user">
+    <a href="/users/sign-up">
+        Create new Account
+    </a>
+</div>
+        
+</div>
+
+
+</div>
+</div>

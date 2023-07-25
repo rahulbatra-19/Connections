@@ -1,24 +1,44 @@
 
+<section id="left">
+    <p>
+        <h5>  
+            <img width="40" height="40" src="https://img.icons8.com/external-tanah-basah-glyph-tanah-basah/48/0080ff/external-friends-user-tanah-basah-glyph-tanah-basah.png" alt="external-friends-user-tanah-basah-glyph-tanah-basah"/>
+               Followed
+            </h5>
+    <%for(let f of following){%>
+        <p>
+            <img src="<%=f.user2.avatar%>" alt="<%=f.user2.name%>"class="img-avatar" id="img" >
+            <a href="/users/profile/<%= f.user2.id %>">
+                <%=f.user2.name%>
+            </a>
+        </p>
+        <%}%>
+    <%for(let f of friendsPage){%>
+            <p>
+                <img src="<%=f.receiver.avatar%>" alt="<%=f.receiver.name%>"class="img-avatar" id="img" >
+                <a href="/users/profile/<%= f.receiver.id %>">
+                    <%=f.receiver.name%>
+                </a>
+            </p>
+            <%}%>    
 
+</section>
 <section id="posts">
     <form action="/posts/create" id="new-postform" enctype="multipart/form-data" method="post">
-
-        <div>
-            <label for="image">Upload Image</label>
-            <br>
-            <input type="file" name="image" id="image" value="" required>
+        <div id="posts-form-div">
+            <img src="<%=locals.user.avatar%>" alt="post" width="50px" height="50px" class="img-avatar" >
+            <input type="text" id="desc" name="caption" placeholder="What's on your mind, <%= locals.user.name %> ? " required></input>
         </div>
+            <input type="file" name="image" id="image"  required>
+            <label for="image" class="custom-file-button">
 
-        <div>
-            <label for="desc">Image Description</label>
-            <br>
-            <textarea id="desc" name="caption" value="" rows="2" placeholder="Caption" required></textarea>
-        </div>
-
-        <input type="submit" value="submit">
+                <img width="40" height="40" src="https://img.icons8.com/doodle/48/stack-of-photos--v1.png" alt="stack-of-photos--v1"/>
+                Upload Photo
+            </label>
+        <input type="submit" value="Upload">
     </form>
     <div id="posts-list-container">
-        <ul>
+        <ul id="posts-list">
             <% for(post of itemsOrganization) {%>
                 <%- include('_posts') -%>
                     <% } %>
@@ -29,39 +49,35 @@
 </section>
 <div id="right">
     <section id="celebORorganization">
-        <h4>Celeb/Orgaanization</h4>
+        <h5> <img width="40" height="40" src="https://img.icons8.com/pastel-glyph/64/0080ff/flag--v1.png" alt="flag--v1"/> Pages</h5>
         <p>
             <%for(let o of celebORorgan){%>
                 <p>
                     <a href="/users/profile/<%= o.id %>">
+                        <p>
+                        <img src="<%=o.avatar%>" alt="<%=o.name%>"class="img-avatar" id="img" >
                         <%=o.name%>
+                        </p>
                     </a>
                 </p>
                 <%}%>
         </p>
     </section>
     <section id="users-all">
-        <h4>Users</h4>
+        <h5> <img width="40" height="40" src="https://img.icons8.com/glyph-neue/64/0080ff/conference-call.png" alt="conference-call"/>  Users</h5>
         <% for(let u of all_users) {%>
             <%if(!u.isceleb_organization){%>
             <p>
                 <a href="/users/profile/<%= u.id %>">
+                    <p>
+                        <img src="<%=u.avatar%>" alt="<%=u.name%>"class="img-avatar" id="img" >
                     <%=u.name%>
+                </p>
                 </a>
             </p>
             <%}}%>
     </section>
-    <section id="followed">
-        <h4>Followed</h4>
-        <%for(let f of following){%>
-            <p>
-                <a href="/users/profile/<%= f.user2.id %>">
-                    <%=f.user2.name%>
-                </a>
-            </p>
-            <%}%>
-
-    </section>
+    
    
 
     </div>

@@ -4,6 +4,7 @@ const multer = require('multer');
 const path = require('path');
 const upload = multer({dest: 'uploads/posts'});
 const Comment = require('../models/comments');
+const Reaction = require('../models/reactions');
 
 
 
@@ -45,6 +46,9 @@ module.exports.destroy = async function(req, res){
         let post = await Post.findById(req.params.id);
          // .id means converting the object _id into string
         if(post.user == req.user.id){
+
+            await Reaction.deleteMany({likeable: post, onModel : 'Post'});
+            await Reaction.deleteMany( {_id: {$in: post.comments}});
             let comment = await Comment.deleteMany({post: req.params.id });
 
 

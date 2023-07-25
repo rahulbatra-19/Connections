@@ -1,13 +1,17 @@
 <link rel="stylesheet" href="/css/chat_box.css">
 
-
-	<div id="chat-box-open">
-		want to chat?
-	</div>
-
-
 	<div id="user-chat-box">
-        <span id="cross">X</span>
+		<div id="chat-box-user">
+
+			 <span>
+        <a href="/users/profile/<%= profile_user._id %>">
+        <img src="<%=profile_user.avatar%>" alt="<%=profile_user.name%>" class="img-avatar" id="img">
+       <%=profile_user.name %> 
+       </a>
+       </span>
+			<span id="cross">X</span>
+		</div>
+      
 		<ul id="chat-messages-list">
             
 			
@@ -18,23 +22,25 @@
 					<!-- your message -->
                     <%= message.message%>
 				</span>	
-                <sub><%= message.sender.name%></sub>
 			</li>
             <%}else {%>
                 <li class="other-message">
+					<sub>
+						<img src="<%=profile_user.avatar%>" alt="<%=profile_user.name%>"  id="img-message">
+                    </sub>
                     <span> 
                         <%= message.message %>
                     </span>
-                    <sub>
-                        <%= message.sender.name %>
-                    </sub>
+                    
                 </li>
                 <%}}%>
 
 		</ul>
 		<div id="chat-message-input-container">
-			<input id="chat-message-input" placeholder="Type message here">
-			<button id="send-message">Send</button>
+			<input id="chat-message-input" placeholder="Aa">
+			<button id="send-message" >
+				<img width="24" height="24" src="https://img.icons8.com/material/24/0080ff/sent--v1.png" alt="sent--v1"/>
+			</button>
 		</div>
 
 	</div>

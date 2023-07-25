@@ -1,11 +1,12 @@
 const Comments = require('../models/comments');
 const Post = require('../models/posts');
+const Reaction = require('../models/reactions');
 
-module.exports.create = async function(req, res){
-    try{
+module.exports.create = async function (req, res) {
+    try {
         let post = await Post.findById(req.body.post);
 
-        if(post){
+        if (post) {
             let comment = await Comments.create({
                 content: req.body.content,
                 post: req.body.post,
@@ -13,57 +14,59 @@ module.exports.create = async function(req, res){
             });
 
 
-            if (req.xhr){
-                // Similar for comments to fetch the user's id!
-                comment = await comment.populate('user', 'name');
-    
-                return res.status(200).json({
-                    data: {
-                        comment: comment
-                    },
-                    message: "Post created!"
-                });
-            }
+            // if (req.xhr) {
+            //     // Similar for comments to fetch the user's id!
+            //     comment = await comment.populate('user', 'name');
+
+            //     return res.status(200).json({
+            //         data: {
+            //             comment: comment
+            //         },
+            //         message: "Post created!"
+            //     });
+            // }
 
             post.comments.push(comment);
             post.save();
         }
         res.redirect('back');
     }
-    catch{
+    catch {
         console.log('Error in creating comments');
     }
 }
 
-module.exports.destroy = function(req, res){
+module.exports.destroy = function (req, res) {
 
-        Comments.findById(req.params.id).then(
-            comment => {
-                if(comment.user.toString() === req.user.id ){
-                    let postId = comment.post;
+    Comments.findById(req.params.id).then(
+        comment => {
+            if (comment.user.toString() === req.user.id) {
+                let postId = comment.post;
 
-                    comment.deleteOne();
-                
+                comment.deleteOne();
+                Reaction.deleteMany({ likeable: comment._id, onModel: 'Comment' });
 
-                Post.findByIdAndUpdate(postId , {$pull: {comments: req.params.id}}).then(()=>{
+
+                Post.findByIdAndUpdate(postId, { $pull: { comments: req.params.id } }).then(() => {
                     //  send the comment id which was deleted back to the views
-            if (req.xhr){
-                return res.status(200).json({
-                    data: {
-                        comment_id: req.params.id
-                    },
-                    message: "Post deleted"
-                });
-            }
+                    if (req.xhr) {
+                        return res.status(200).json({
+                            data: {
+                                comment_id: req.params.id
+                            },
+                            message: "Post deleted"
+                        });
+                    }
 
 
                     return res.redirect('back');
-                }).catch(err =>{
+                }).catch(err => {
 
                     return res.redirect('back');
                 })
-                }}
-        ).catch (error =>{
-        console.log('Error in destroying comments ', error );
+            }
+        }
+    ).catch(error => {
+        console.log('Error in destroying comments ', error);
     });
 }

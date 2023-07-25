@@ -1,13 +1,14 @@
 <footer>
-    <p> &copy; 2023 Codeial. All Rights Reserved.</p>
+      
+    <p> &copy; 2023 Connections. All Rights Reserved.</p>
     <ul>
-        <li>
-            <a href="/">Home</a>
+
+
+
+        <li id="contact">
+            <a href="mailto:hoyt9936@example.com?subject=complain%20from%20my%20website&body=I%20enjoyed%20browsing%20your%20website.%20">
+                <img width="32" height="32" src="https://img.icons8.com/ios-filled/50/FFFFFF/request-service.png" alt="request-service"/>
+            </a>
         </li>
-        <% if (locals.user) { %>
-        <li>
-            <a href="/users/profile/<%= locals.user._id %>">Profile</a>
-        </li>
-        <%}%>
     </ul>
 </footer>

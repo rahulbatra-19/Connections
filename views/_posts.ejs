@@ -1,20 +1,32 @@
 <li id="post-<%= post._id%>">
   <div>
-    <div>
+    <div class="post-description">
       <p>
-        <%=post.user.name %>
+        <span>
+        <a href="/users/profile/<%= post.user._id %>">
+        <img src="<%=post.user.avatar%>" alt="<%=post.user.name%>" class="img-avatar" id="img">
+       <%=post.user.name %> 
+       </a>
+       </span>
+
           <% if(locals.user&&(locals.user.id==post.user.id)) { %>
             <small>
-              <a class="delete-post-button"  href="/posts/destroy/<%= post.id %>">X</a>
+              <a class="delete-post-button"  href="/posts/destroy/<%= post.id %>">
+              <img width="24" height="24" src="https://img.icons8.com/material-rounded/24/0080ff/filled-trash.png" alt="filled-trash"/>
+              </a>
             </small>
             <%}%>
       </p>
-      <img src="/<%= post.img %>" alt="Post Image" width="300px" height="350px" name="imageuploaded">
-      <p>
+      
         <%= post.caption %>
-      </p>
-    </div>
-    <small>
+        
+      </div>
+      
+      <img src="/<%= post.img %>" alt="Post Image" name="imageuploaded" class="posts-image">
+
+      
+    
+    <div class="posts-down">
       <div class="reactions-container">
       <% const hasReactions = reactionPost.find(reaction => reaction.likeable._id == post.id); %>
         <% if (!hasReactions) { %>
@@ -55,12 +67,26 @@
             </a>
         <% } %>
       </div>
-    </small>
+
+    <button class="show-comments-section">
+     
+
+       <img width="32" height="32" src="https://img.icons8.com/windows/32/chat-message.png" alt="chat-message"/> 
+       <%=post.comments.length%>
+       Comments</button>
+
+    </div>
+
     <div class="post-comments">
       <form action="/comments/create" method="post" id="post-<%= post._id %>-comments-form" >
+        <a href="/users/profile/<%= locals.user._id %>">
+          <img src="<%=locals.user.avatar%>" alt="<%=locals.user.name%>" class="img-avatar" id="img">
+        </a>
         <input type="text" name="content" placeholder="Enter your comment">
         <input type="hidden" name="post" value="<%= post._id%>">
-        <input type="submit" value="Add Comment">
+        <button type="submit">
+          <img width="24" height="24" src="https://img.icons8.com/material/24/E0E9EE/sent--v1.png" alt="sent--v1"/>
+        </button>
       </form>
 
     </div>

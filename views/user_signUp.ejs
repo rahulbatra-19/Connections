@@ -1,20 +1,33 @@
-<%= title %>
+<link rel="stylesheet" href="/css/sign-up.css">
 
+<div id="sign-up-page">
+
+
+<div id="sign-up-form">
 <form action="/users/create" method="post">
     <input type="text" name="name" placeholder="Enter your name" id="">
     <input type="email" name="email" placeholder="Enter your email" id="">
     <input type="password" name="password" placeholder="Enter your password" id="">
     <input type="password" name="confirm_password" placeholder="Enter password again" >
+    <label for="celebORorgan">
+    <input type="checkbox" name="isPage" id="celebORorgan" value="true">
+    Page for a celebrity, organization or business.
+    </label>
     <input type="submit" value="Sign Up">
 </form>
 
 
 <p>
-    <a href="/users/auth/google">Google Sign Up</a>
+    <a href="/users/auth/google">
+        <img width="40" height="40" src="https://img.icons8.com/color/48/google-logo.png" alt="google-logo"/>
+        Sign Up using Google
+    </a>
 </p> 
 <p>
-    <a href="/users/auth/github">Github Sign Up</a>
+    <a href="/users/auth/github">
+        <img width="40" height="40" src="https://img.icons8.com/ios-glyphs/30/github.png" alt="github"/>
+        Sign Up using Github
+    </a>
 </p>
-<p>
-    <a href="/users/forgot-pass">Forgot Password?</a>
-</p> 
+</div>
+</div>

@@ -35,7 +35,8 @@ const userSchema = new mongoose.Schema({
         type: String
     },
     isceleb_organization :{
-        type: Boolean
+        type: Boolean,
+        default: false
     }
 },   {
     timestamps: true 

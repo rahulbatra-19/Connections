@@ -1,45 +1,87 @@
 <link rel="stylesheet" href="/css/home.css">
-<h1>Connections || <%=title %>
-</h1>
-<div>
-    <%if(!locals.user.isceleb_organization){%>
-    <a href="/users/organization?id=<%= locals.user._id %> ">Make page organization </a>
-    <%}%>
-    </div>
-<%if(locals.user.avatar){%>
-    <img src="<%=locals.user.avatar%>" alt="<%=locals.user.name%>" width="100px" height="100px" class="img-avatar">
-    <%}else{%>
-
-      <img src= "/images/user-profile.png" alt="<%=locals.user.name%>" width="100px" height="100px" class="img-avatar">
-      <%}%>
-
 
 <div id="home-container">
 
 
     <%if(!locals.user.isceleb_organization){%>
 
+<section id="left">
+    <%if(friends){%>
+        <section id="friends">
+            <h5> <img width="40" height="40" src="https://img.icons8.com/external-tanah-basah-glyph-tanah-basah/48/0080ff/external-friends-user-tanah-basah-glyph-tanah-basah.png" alt="external-friends-user-tanah-basah-glyph-tanah-basah"/> friends </h5>
+            
+            <%for(let f of friends){  %>
+                
+                <p>
+                    <%if(f.sender.name==locals.user.name){%>
+                        <%if(!f.receiver.isceleb_organization){%>
+                    <a href="/users/profile/<%= f.receiver._id %>">
+                        <p><img src="<%=f.receiver.avatar%>" alt="<%=f.receiver.name%>"class="img-avatar" id="img" >
+                            <%= f.receiver.name %></p>
+                            
+                    </a>
+                    <%}}else{%>
+                        <%if(!f.sender.isceleb_organization){%>
+                    <a href="/users/profile/<%= f.sender._id %>">
+                        <p>
+                            <img src="<%=f.sender.avatar%>" alt="<%=f.sender.name%>" class="img-avatar" id="img" >
+                            <%= f.sender.name %>
+                        </p>
+                                
+                    </a>
+                    <%}}%>
+                </p>
+    
+                <%}%>
+        </section>
+        <%}%>
+    
+        <section id="friendRequests">
+            <h5> <img width="40" height="40" src="https://img.icons8.com/ios-filled/50/0080ff/add-user-group-man-man--v1.png" alt="add-user-group-man-man--v1"/> friend requests </h5>  
+            <%for(request of friendRequests) {%>
+                <div >
+                    <a href="/users/profile/<%= request.sender._id %>">
+                        <img src="<%=request.sender.avatar%>" alt="<%=request.sender.name%>" class="img-avatar" id="img" >
+                        
+                        <%= request.sender.name %>
+                    </a>
+                
+                &emsp;
+                <span>
+                <a href="/friends/accept/?id=<%= request.sender._id %>">
+                    Accept
+                </a>
+                &emsp;
+                <a href="/friends/destroy/?id=<%= request.sender._id %>">
+                    Decline
+                </a>
+            </span>
+    
+            </div>
+    
+            <%}%>
+        </section>
+    
+</section>
+
   
 
 <section id="posts">
     <form action="/posts/create" id="new-postform" enctype="multipart/form-data" method="post">
-
-        <div>
-            <label for="image">Upload Image</label>
-            <br>
-            <input type="file" name="image" id="image" value="" required>
+        <div id="posts-form-div">
+            <img src="<%=locals.user.avatar%>" alt="post" width="50px" height="50px" class="img-avatar" >
+            <input type="text" id="desc" name="caption" placeholder="What's on your mind, <%= locals.user.name %> ? " required></input>
         </div>
+            <input type="file" name="image" id="image"  required>
+            <label for="image" class="custom-file-button">
 
-        <div>
-            <label for="desc">Image Description</label>
-            <br>
-            <textarea id="desc" name="caption" value="" rows="2" placeholder="Caption" required></textarea>
-        </div>
-
-        <input type="submit" value="submit">
+                <img width="40" height="40" src="https://img.icons8.com/doodle/48/stack-of-photos--v1.png" alt="stack-of-photos--v1"/>
+                Upload Photo
+            </label>
+        <input type="submit" value="Upload">
     </form>
     <div id="posts-list-container">
-        <ul>
+        <ul id="posts-list">
             <% for(post of items) {%>
                 <%- include('_posts') -%>
                     <% } %>
@@ -51,69 +93,36 @@
 
 <div id="right">
     <section id="users-all">
-        <h4>Users</h4>
+        <h5> <img width="40" height="40" src="https://img.icons8.com/glyph-neue/64/0080ff/conference-call.png" alt="conference-call"/>  Users</h5>
         <% for(let u of all_users) {%>
             <%if(!u.isceleb_organization){%>
             <p>
                 <a href="/users/profile/<%= u.id %>">
+                    <p>
+                        <img src="<%=u.avatar%>" alt="<%=u.name%>"class="img-avatar" id="img" >
                     <%=u.name%>
+                </p>
                 </a>
             </p>
             <%}}%>
     </section>
     <section id="celebORorganization">
-        <h4>Celeb/Orgaanization</h4>
+        <h5> <img width="40" height="40" src="https://img.icons8.com/pastel-glyph/64/0080ff/flag--v1.png" alt="flag--v1"/> Pages</h5>
         <p>
             <%for(let o of celebORorgan){%>
                 <p>
                     <a href="/users/profile/<%= o.id %>">
-                        <%=o.name%>
+                        <p>
+                        <img src="<%=o.avatar%>" alt="<%=o.name%>"class="img-avatar" id="img" >
+                            <%=o.name%>
+                        </p>
+                        
                     </a>
                 </p>
                 <%}%>
         </p>
     </section>
-    <%if(friends){%>
-    <section id="friends">
-        <h4>Friends</h4>
-        
-        <%for(let f of friends){  %>
-            <%if(!f.isceleb_organization){%>
-            <p>
-                <%if(f.sender.name==locals.user.name){%>
-                <a href="/users/profile/<%= f.receiver._id %>">
-                        <%= f.receiver.name %>
-                </a>
-                <%}else{%>
-                <a href="/users/profile/<%= f.sender._id %>">
-                            <%= f.sender.name %>
-                </a>
-                <%}%>
-            </p>
-
-            <%}}%>
-    </section>
-    <%}%>
-
-    <section id="friendRequests">
-        FriendRequests
-        <%for(request of friendRequests) {%>
-            <div >
-            <%= request.sender.name %>
-            &emsp;
-            <a href="/friends/accept/?id=<%= request.sender._id %>">
-                Accept
-            </a>
-            &emsp;
-            <a href="/friends/destroy/?id=<%= request.sender._id %>">
-                Decline
-            </a>
-
-        </div>
-
-        <%}%>
-    </section>
-
+    
 </div>
 <%}else{%>
     <%- include('_celebORorganizationHome') -%>
@@ -129,6 +138,10 @@
 
 <script src="/js/reaction_created.js"></script>
 <script>
+    $('.show-comments-section').click(()=>{
+        $('.post-comments').toggle();
+        $('.post-comments-list').toggle();
+    });
     $('.reactions-container').each(function () {
         let self = this;
         //   console.log(this);

@@ -14,13 +14,13 @@ module.exports.home = async function (req, res) {
                 ], status: 'accepted'
             }).populate('sender').populate('receiver');
 
+            // console.log(friends);
 
-
-        let friendsPost = [req.user._id];
+        let friendsPost = [req.user.id];
         let i = 1;
         // console.log(friends);
         for (let f of friends) {
-            if (f.sender._id == req.user._id) {
+            if (f.sender.id == req.user.id) {
                 friendsPost[i++] = f.receiver.id;
 
             } else {
@@ -49,14 +49,29 @@ module.exports.home = async function (req, res) {
                 },
             });
 
-            let following = await Follow.find({user1 : req.user}).populate('user2');
-            console.log(following);
-            let followingPosts = [req.user._id];
+            let following = await Follow.find(
+                    { user1 : req.user
+            }).populate('user2').populate('user1');
+            let friendsPage = await FriendShip.find(
+                {
+
+                    sender: req.user.id ,
+                    status: 'accepted',
+                }).populate('sender').populate('receiver');
+            let followingPosts = [req.user.id];
             let j = 1;
+
+                for(let fp of friendsPage){
+                    followingPosts[j++] = fp.receiver.id;
+                }
             // console.log(friends);
             for (let f of following) {
-                followingPosts[j++] = f.user2._id;
+                followingPosts[j++] = f.user2.id;
             }
+            console.log(following );
+            // following += followingPosts;
+            // console.log(followingPosts);
+
 
             let postsCeleb = await Post.find({ user: { $in: followingPosts } })
             .sort('-createdAt')
@@ -76,7 +91,7 @@ module.exports.home = async function (req, res) {
                     sort: '-createdAt',
                 },
             });
-            console.log(postsCeleb);
+            // console.log(postsCeleb);
 
 
 
@@ -111,7 +126,8 @@ module.exports.home = async function (req, res) {
             friends: friends,
             celebORorgan : organizationORceleb,
             itemsOrganization : postsCeleb,
-            following : following
+            following : following,
+            friendsPage : friendsPage
         });
 
     }

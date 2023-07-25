@@ -1,18 +1,44 @@
-body{
-    background-color: black;
-    color: white;
-}
+#body-container{
 
+}
 #form-edit-info{
     display: none;
     z-index: 2;
     /* opacity: 1 !important; */
     background-color: white;
 }
+#about{
+    padding: 2%;
+    width: 70%;
+}
+#about span{
+    font-size: 3rem;
+    font-weight: bold;
+    width: 80%;
+    vertical-align: text-top;
+}
+
+.above-post{
+    display: flex;
+}
+#edit-info{
+    height: fit-content;
+    font-weight: bold;
+    border: none;
+    margin-top: 8.5%;
+    border-radius: 10px;
+
+
+}
+#about p{
+    margin-left: 9rem;
+    font-size: 1.5rem;
+    font-weight: 400;
+}
 
 #about img{
-    width: 70px;
-    height: 70px;
+    /* width: 150px; */
+    /* height: 150px; */
     border-radius: 50%;
 }
 #organization-img{
@@ -20,18 +46,265 @@ body{
     border-radius: none !important;
 }
 
+#friend-request p{
+    /* margin-top: 83%; */
+    height: 100%;
+    padding-top: 7rem;
+}
+#friend-request p a{
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #0080ff;
+    color: white;
+    margin-right: 10px;
+}
+#follow p{
+    /* margin-top: 83%; */
+    height: 100%;
+    padding-top: 7rem;
+}
+#follow p a{
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #0080ff;
+    color: white;
+    margin-right: 10px;
+}
+#remove-request{
+    margin-top: 20%;
+}
+
+#likePage{
+    margin-top: 8%;
+
+}
+
+#likePage a{
+    background-color: #0080ff ;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+
+}
+
+#posts-list-container {
+    padding:20px ;
+    width: 45%;
+  margin-left: 10%;
+  margin-right: 0;
+}
+
+#posts-list{
+    list-style: none;
+    padding-left: 0;
+
+}
+#posts-list-container ul li{
+    margin-bottom: 5%;
+    background-color: white;
+    border-radius: 10px;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
 
 
-/* Style for the overlay */
-#overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vh;
-    height: 100vw;
-    background-color: rgba(1, 1, 1, 0.3); /* Semi-transparent black background */
-    z-index: 999; /* Make sure the overlay appears on top of other elements */
-    display: none; /* Initially hide the overlay */
-  }
-  
-  
+}
+
+
+
+
+#posts-list{
+    list-style: none;
+    padding-left: 0;
+}
+#posts-list-container ul li{
+    margin-bottom: 5%;
+    background-color: white;
+    border-radius: 10px;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+
+
+}
+
+.img-avatar{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+#posts-list-container .post-description {
+    font-size: 1rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    padding-bottom: 10px ;
+
+}
+a{
+    color: black;
+}
+
+.post-description p{
+    display: flex;
+    font-weight: bold;
+}
+.post-description p span{
+    width: 90%;
+    color: black;
+}
+.delete-post-button{
+    margin-left: 10%;
+}
+
+
+.posts-image {
+width: 100%;
+
+}
+.reactions-container{
+    display: inline-block;
+    padding: 10px;
+    padding-top: 0;
+    width: 50%;
+
+}
+.reaction-count{
+    font-size: 1.4rem;
+    /* margin-left: 5%; */
+}
+.reactions-container a{
+    font-size: 1.5rem;
+}
+
+/* comments */
+
+.post-comments{
+    display: none;
+}
+.posts-down{
+    width: 90%;
+    border-bottom: 1px solid rgb(224, 233, 238);
+    border-top: 1px solid rgb(224, 233, 238);
+    margin-left: 5% ;
+    margin-top: 10px;
+}
+
+.show-comments-section{
+    border: none;
+    background-color: rgb(224, 233, 238);
+    border-radius: 5px;
+    margin-left: 23%;
+}
+.post-comments form{
+    margin-top: 10px;
+    margin-left: 2rem;
+}
+
+.post-comments form input[type="text"]{
+    width: 70%;
+    border-radius: 10px;
+    padding: 5px;
+    border:none;
+    border: 1px solid rgb(224, 233, 238);
+}
+.post-comments form button[type="submit"]{
+    border-radius: 10px;
+    border:none;
+    padding: 0px !important;
+    width: 10%;
+    background-color: transparent;
+
+
+    /* border: 1px solid rgb(224, 233, 238); */
+}
+.post-comments form button[type="submit"] img{
+    background-color: transparent;
+}
+.post-comments-list {
+    display: none;
+}
+
+
+
+
+/* comment ejs
+ */
+
+ .post-comments-list ul {
+    list-style: none;
+ }
+
+.bold{
+    font-weight: bold;
+ }
+ .comments-css{
+    display: flex;
+ }
+ .post-comments-list .reactions-container a{
+    font-size: .7rem;
+ }
+
+ .post-comments-list .reactions-container .reaction-count {
+    font-size: 1rem;
+ }
+
+.comments-css #msg-content{
+    margin-left: 2%;
+    background-color: rgb(224, 233, 238);
+    border-radius: 10px;
+    padding: 3px;
+    /* width: fit-content; */
+
+}
+.post-comments-list li{
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+#form-edit-info{
+    display: flex;
+    flex-direction: column;
+}
+
+#right{
+    display: none;
+    /* position:fixed; */
+    /* right: 70px; */
+    width: 30%;
+    /* top: 80px; */
+    padding-top: 2%;
+    padding-left: 4% ;
+}
+#middle{
+    display: flex;
+}
+#right form{
+    padding: 10px;
+    background-color:rgb(224, 233, 238); 
+
+
+    
+}
+
+#right form span{
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: white;
+    border-radius: 20px;
+    color: #0080ff;
+    font-weight: bold;
+
+}
+
+#right form span input{
+    width: 70%;
+    border: none;
+}
+#right form input[type="submit"]{
+    background-color: #0080ff;
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 20px;
+}
+#right form input[type="file"] {
+    display: none;
+}

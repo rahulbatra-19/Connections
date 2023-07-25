@@ -1,11 +1,14 @@
 class ChatEngine{
-    constructor(chatBoxId, userEmail, userEmail2, user1, user2 , user1Name ){
+    constructor(chatBoxId, userEmail, userEmail2, user1, user2 , user1Name,user2Name, user1Avatar, user2Avatar){
         this.chatBox = $(`#${chatBoxId}`);
         this.userEmail = userEmail;
         this.userEmail2 = userEmail2;
         this.user1Id = user1 ;
         this.user2Id = user2;
+        this.user1Avatar =user1Avatar;
+        this.user2Avatar = user2Avatar;
         this.senderName = user1Name;
+        this.receiverName = user2Name;
         this.socket = io.connect('http://localhost:4000');
         this.room = this.generateChatroomName(userEmail, userEmail2);
         console.log(this.room);
@@ -43,6 +46,9 @@ class ChatEngine{
                 message:  msg,
                 sender : self.userEmail,
                 senderName : self.senderName,
+                receiverName : self.receiverName,
+                senderImage : self.user1Avatar,
+                recieverImage : self.user2Avatar,
                 senderId:  self.user1Id,
                 receiverId : self.user2Id,
                 chatroom: self.room
@@ -66,15 +72,30 @@ class ChatEngine{
 
         if(data.sender == self.userEmail){
             messageType = 'self-message';
-        }
+        
+        
 
         newMessage.append($('<span>',{
             'html': data.message
         }));
-
+    }
+    else{
         newMessage.append($('<sub>',{
-            'html': data.sender
+            'html':`<img src="${data.senderImage}" alt="${data.senderImage}" id="img-message"></img>`
         }));
+        newMessage.append($('<span>',{
+
+            'html': data.message
+        }));
+
+        
+    }
+
+        // newMessage.append($('<sub>',{
+        //     'html':`<img src="${data.senderImage}" alt="${data.senderName}" id="img-message"></img>`
+        // }));
+    
+    
         newMessage.addClass(messageType);
 
         $('#chat-messages-list').append(newMessage);
