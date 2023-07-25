@@ -15,11 +15,13 @@
 
     <%if(!isfriend){%>
         <a href="/friends/create/?id=<%=profile_user._id%>" class="page-like-button" data-value="Like page" >
-            Like Page
+          <img width="30" height="30" src="https://img.icons8.com/ios-filled/50/FFFFFF/facebook-like.png" alt="facebook-like"/>
+            Like 
           </a>
         <%}else{%>
         <a href="/friends/destroy/?id=<%=profile_user._id%>" class="page-unlike-button" data-value="Unlike page" >
-            Unlike Page
+          <img width="30" height="30" src="https://img.icons8.com/ios-filled/50/FFFFFF/facebook-like.png" alt="facebook-like"/>
+          Liked
             </a>     
             <%}%>
           </div>
@@ -29,9 +31,6 @@
 
       
     <button id ="edit-info"> <img width="24" height="24" src="https://img.icons8.com/material-sharp/24/edit--v1.png" alt="edit--v1"/> Edit profile</button>
-
-      
-  
 
  <%}%>
 </div>
