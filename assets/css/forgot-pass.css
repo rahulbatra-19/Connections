@@ -1,0 +1,42 @@
+form{
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    background-color: dodgerblue;
+    padding: 10px;
+    border-radius: 10px;
+}
+form input{
+    border: none;
+    padding: 5px;
+    border-radius: 10px;
+    width: 80%;
+    margin: auto;
+    margin-top: 3%;
+
+
+}
+form input[type="submit"]{
+    
+    width: fit-content;
+    margin: auto;
+    margin-top: 3%;
+    color: white;
+    font-weight: bold;
+    background-color: rgb(132, 131, 131)
+}
+h1{
+    text-align: center;
+}
+p{
+    text-align: center;
+}
+a{
+    text-decoration: none;
+    color: black;
+    background-color: dodgerblue;
+    padding: 5px;
+    border-radius: 10px;
+
+}

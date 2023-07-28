@@ -108,19 +108,25 @@ module.exports.update = async function (req, res) {
             user.about = req.body.about;
 
             if (req.file) {
-
+                // console.log(user.avatar);
+                    console.log('hoho');
                 if (user.avatar) {
+                    console.log('hoho');
                     console.log(user.avatar);
 
-                    console.log('hoho');
+                    if(user.avatar == '/images/user-profile.png'){}
+                    else{
 
-                    fs.unlinkSync(path.join(__dirname, '..', user.avatar));
+
+                    fs.unlinkSync(path.join(__dirname ,'..', user.avatar));
+                    }
                 }
-                console.log(req.file.filename);
+                // console.log(req.file.filename);
                 // this is just saving the path of the uploaded file nto the avatar feild in the user
                 user.avatar = avatarPath + '/' + req.file.filename;
+                console.log(user.avatar);
             }
-            console.log(user.avatar);
+            // console.log(user.avatar);
             // console.log(req.file);
 
             user.save();
@@ -205,7 +211,7 @@ module.exports.destroySession = function (req, res, next) {
         if (err) { return next(err); }
     });
     req.flash('success', 'Logged out successfully!');
-    return res.redirect('/');
+    return res.redirect('/users/sign-in');
 }
 
 

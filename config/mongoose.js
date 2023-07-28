@@ -1,4 +1,4 @@
-// require the libarary
+// require the library
 const mongoose = require('mongoose');
 
 // Error handling

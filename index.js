@@ -22,10 +22,6 @@ const customMware = require('./config/middleware');
 
 app.use(express.static('./assets'));
 
-
-// Allow requests from http://localhost:6
-// app.use(cors({ origin: 'http://localhost:8000' }));
-
 // extract style and scripts from sub pages into layout
 app.set('layout extractStyles', true);
 app.set('layout extractScripts', true);
