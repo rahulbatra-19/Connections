@@ -1,10 +1,11 @@
-header{
+header {
     display: flex;
-    background-color:#0080ff;
+    background-color: #0080ff;
     color: whitesmoke;
-    padding:10px;
+    padding: 10px;
 }
-header ul{
+
+header ul {
     display: flex;
     list-style: none;
     position: relative;
@@ -13,39 +14,42 @@ header ul{
     justify-content: space-evenly;
 }
 
-header ul a{
+header ul a {
     padding-top: 15px;
 
     color: white;
 }
 
-#sign-in{
+#sign-in {
     margin-left: 80%;
     padding-top: 15px;
 
 }
-#sign-out{
+
+#sign-out {
 
     padding-top: 15px;
 
 }
+
 #logo-avatar img {
     border-radius: 50%;
     width: 3.5rem;
     height: 3.5rem;
 }
-#home-icon{
+
+#home-icon {
     padding-top: 0.6rem;
 
     margin-left: 85%;
 
 }
 
-#log-out{
+#log-out {
     padding-top: 0.6rem;
 }
 
-b{
+b {
     width: 5%;
     margin-left: 1%;
     text-align: center;

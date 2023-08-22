@@ -1,4 +1,4 @@
-#sign-in-body{
+#sign-in-body {
     width: 100%;
     height: 83vh;
     display: flex;
@@ -6,18 +6,19 @@
     color: black;
 }
 
-#text-side{
+#text-side {
     width: 50%;
     padding-left: 10%;
     padding-top: 10%;
 }
-#text-side span{
+
+#text-side span {
     font-size: 3rem;
     font-weight: bold;
     color: #0080ff;
 }
 
-#text-side p{
+#text-side p {
     font-size: 1.5rem;
 }
 
@@ -27,50 +28,56 @@
     margin-left: 10%;
     width: 50%;
 }
-#form-side-form{
+
+#form-side-form {
     background-color: white;
-    border-radius: 10px ;
+    border-radius: 10px;
     padding: 20px;
     width: 60%;
     margin-top: 15%;
 }
 
-#form-side form{
+#form-side form {
     display: flex;
     flex-direction: column;
 
 }
-#form-side-form form input{
+
+#form-side-form form input {
     border: none;
     padding: 10px;
     border-radius: 5px;
     margin-bottom: 15px;
     border-radius: 10px;
-    border:  1px rgb(151, 151, 151) solid;
+    border: 1px rgb(151, 151, 151) solid;
     background-color: white;
 }
+
 #form-side-form form input[type='submit'] {
     background-color: #0080ff;
     color: white;
     font-weight: bold;
 }
+
 /* {
     color: white;
     font-weight: bold;
     background-color: #0080ff !important;
 } */
-#links-signin{
+#links-signin {
 
     display: flex;
     justify-content: space-around;
     border-bottom: 1px solid rgb(160, 160, 160);
 
 }
-#create-user{
+
+#create-user {
     text-align: center;
-    margin: 30px ;
+    margin: 30px;
 }
-#create-user a{
+
+#create-user a {
     border-radius: 10px;
 
     background-color: rgb(84, 208, 84);
@@ -79,5 +86,3 @@
     padding: 10px;
     font-size: larger;
 }
-
-

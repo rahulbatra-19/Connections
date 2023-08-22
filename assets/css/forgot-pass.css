@@ -1,4 +1,4 @@
-form{
+form {
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -7,18 +7,18 @@ form{
     padding: 10px;
     border-radius: 10px;
 }
-form input{
+
+form input {
     border: none;
     padding: 5px;
     border-radius: 10px;
     width: 80%;
     margin: auto;
     margin-top: 3%;
-
-
 }
-form input[type="submit"]{
-    
+
+form input[type="submit"] {
+
     width: fit-content;
     margin: auto;
     margin-top: 3%;
@@ -26,13 +26,16 @@ form input[type="submit"]{
     font-weight: bold;
     background-color: rgb(132, 131, 131)
 }
-h1{
+
+h1 {
     text-align: center;
 }
-p{
+
+p {
     text-align: center;
 }
-a{
+
+a {
     text-decoration: none;
     color: black;
     background-color: dodgerblue;

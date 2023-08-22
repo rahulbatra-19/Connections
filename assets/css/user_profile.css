@@ -1,27 +1,26 @@
-#body-container{
-
-}
-#form-edit-info{
+#form-edit-info {
     display: none;
     z-index: 2;
-    /* opacity: 1 !important; */
     background-color: white;
 }
-#about{
+
+#about {
     padding: 2%;
     width: 70%;
 }
-#about span{
+
+#about span {
     font-size: 3rem;
     font-weight: bold;
     width: 80%;
     vertical-align: text-top;
 }
 
-.above-post{
+.above-post {
     display: flex;
 }
-#edit-info{
+
+#edit-info {
     height: fit-content;
     font-weight: bold;
     border: none;
@@ -30,57 +29,63 @@
 
 
 }
-#about p{
+
+#about p {
     margin-left: 9rem;
     font-size: 1.5rem;
     font-weight: 400;
 }
 
-#about img{
+#about img {
     /* width: 150px; */
     /* height: 150px; */
     border-radius: 50%;
 }
-#organization-img{
+
+#organization-img {
     width: 100%;
     border-radius: none !important;
 }
 
-#friend-request p{
+#friend-request p {
     /* margin-top: 83%; */
     height: 100%;
     padding-top: 7rem;
 }
-#friend-request p a{
+
+#friend-request p a {
     padding: 10px;
     border-radius: 10px;
     background-color: #0080ff;
     color: white;
     margin-right: 10px;
 }
-#follow p{
+
+#follow p {
     /* margin-top: 83%; */
     height: 100%;
     padding-top: 7rem;
 }
-#follow p a{
+
+#follow p a {
     padding: 10px;
     border-radius: 10px;
     background-color: #0080ff;
     color: white;
     margin-right: 10px;
 }
-#remove-request{
+
+#remove-request {
     margin-top: 20%;
 }
 
-#likePage{
+#likePage {
     margin-top: 8%;
 
 }
 
-#likePage a{
-    background-color: #0080ff ;
+#likePage a {
+    background-color: #0080ff;
     color: white;
     padding: 10px;
     border-radius: 10px;
@@ -88,18 +93,19 @@
 }
 
 #posts-list-container {
-    padding:20px ;
+    padding: 20px;
     width: 45%;
-  margin-left: 10%;
-  margin-right: 0;
+    margin-left: 10%;
+    margin-right: 0;
 }
 
-#posts-list{
+#posts-list {
     list-style: none;
     padding-left: 0;
 
 }
-#posts-list-container ul li{
+
+#posts-list-container ul li {
     margin-bottom: 5%;
     background-color: white;
     border-radius: 10px;
@@ -109,14 +115,12 @@
 
 }
 
-
-
-
-#posts-list{
+#posts-list {
     list-style: none;
     padding-left: 0;
 }
-#posts-list-container ul li{
+
+#posts-list-container ul li {
     margin-bottom: 5%;
     background-color: white;
     border-radius: 10px;
@@ -126,88 +130,98 @@
 
 }
 
-.img-avatar{
+.img-avatar {
     width: 40px;
     height: 40px;
     border-radius: 50%;
 }
+
 #posts-list-container .post-description {
     font-size: 1rem;
     margin-left: 1rem;
     margin-right: 1rem;
-    padding-bottom: 10px ;
+    padding-bottom: 10px;
 
 }
-a{
+
+a {
     color: black;
 }
 
-.post-description p{
+.post-description p {
     display: flex;
     font-weight: bold;
 }
-.post-description p span{
+
+.post-description p span {
     width: 90%;
     color: black;
 }
-.delete-post-button{
+
+.delete-post-button {
     margin-left: 10%;
 }
 
 
 .posts-image {
-width: 100%;
+    width: 100%;
 
 }
-.reactions-container{
+
+.reactions-container {
     display: inline-block;
     padding: 10px;
     padding-top: 0;
     width: 50%;
 
 }
-.reaction-count{
+
+.reaction-count {
     font-size: 1.4rem;
     /* margin-left: 5%; */
 }
-.reactions-container a{
+
+.reactions-container a {
     font-size: 1.5rem;
 }
 
 /* comments */
 
-.post-comments{
+.post-comments {
     display: none;
 }
-.posts-down{
+
+.posts-down {
     width: 90%;
     border-bottom: 1px solid rgb(224, 233, 238);
     border-top: 1px solid rgb(224, 233, 238);
-    margin-left: 5% ;
+    margin-left: 5%;
     margin-top: 10px;
 }
 
-.show-comments-section{
+.show-comments-section {
     border: none;
     background-color: rgb(224, 233, 238);
     border-radius: 5px;
     margin-left: 23%;
 }
-.post-comments form{
+
+.post-comments form {
     margin-top: 10px;
     margin-left: 2rem;
 }
 
-.post-comments form input[type="text"]{
+.post-comments form input[type="text"] {
     width: 70%;
     border-radius: 10px;
     padding: 5px;
-    border:none;
+    border: none;
     border: 1px solid rgb(224, 233, 238);
 }
-.post-comments form button[type="submit"]{
+
+.post-comments form button[type="submit"] {
     border-radius: 10px;
-    border:none;
+    border: none;
     padding: 0px !important;
     width: 10%;
     background-color: transparent;
@@ -215,9 +229,11 @@ width: 100%;
 
     /* border: 1px solid rgb(224, 233, 238); */
 }
-.post-comments form button[type="submit"] img{
+
+.post-comments form button[type="submit"] img {
     background-color: transparent;
 }
+
 .post-comments-list {
     display: none;
 }
@@ -228,25 +244,27 @@ width: 100%;
 /* comment ejs
  */
 
- .post-comments-list ul {
+.post-comments-list ul {
     list-style: none;
- }
+}
 
-.bold{
+.bold {
     font-weight: bold;
- }
- .comments-css{
+}
+
+.comments-css {
     display: flex;
- }
- .post-comments-list .reactions-container a{
+}
+
+.post-comments-list .reactions-container a {
     font-size: .7rem;
- }
+}
 
- .post-comments-list .reactions-container .reaction-count {
+.post-comments-list .reactions-container .reaction-count {
     font-size: 1rem;
- }
+}
 
-.comments-css #msg-content{
+.comments-css #msg-content {
     margin-left: 2%;
     background-color: rgb(224, 233, 238);
     border-radius: 10px;
@@ -254,37 +272,34 @@ width: 100%;
     /* width: fit-content; */
 
 }
-.post-comments-list li{
+
+.post-comments-list li {
     margin-bottom: 0 !important;
     padding-bottom: 0 !important;
 }
 
-#form-edit-info{
+#form-edit-info {
     display: flex;
     flex-direction: column;
 }
 
-#right{
+#right {
     display: none;
-    /* position:fixed; */
-    /* right: 70px; */
     width: 30%;
-    /* top: 80px; */
     padding-top: 2%;
-    padding-left: 4% ;
+    padding-left: 4%;
 }
-#middle{
+
+#middle {
     display: flex;
 }
-#right form{
+
+#right form {
     padding: 10px;
-    background-color:rgb(224, 233, 238); 
-
-
-    
+    background-color: rgb(224, 233, 238);
 }
 
-#right form span{
+#right form span {
     padding: 10px;
     margin-bottom: 10px;
     background-color: white;
@@ -294,17 +309,19 @@ width: 100%;
 
 }
 
-#right form span input{
+#right form span input {
     width: 70%;
     border: none;
 }
-#right form input[type="submit"]{
+
+#right form input[type="submit"] {
     background-color: #0080ff;
     border: none;
     color: white;
     font-weight: bold;
     border-radius: 20px;
 }
+
 #right form input[type="file"] {
     display: none;
 }
